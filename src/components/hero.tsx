@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <>
       <main className="h-[70vh] w-full flex justify-center items-center">
-        <div className="bg-slate-800 w-[90%] flex h-[90%] rounded-lg">
+        <div className="bg-slate-800 w-[90%] flex h-[90%] rounded-lg mt-[15em]">
           <section className="break-words text-left w-2/4 h-full p-8">
             <h1 className="text-slate-200 mb-2">
               <b>Welcome to AcadQry!</b>

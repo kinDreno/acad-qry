@@ -5,7 +5,8 @@ import { BsPencilSquare } from "react-icons/bs";
 import { LuBellRing } from "react-icons/lu";
 import { FaHome } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { logout } from "@/app/logout/actions";
+
 type NavItem = [string, string, React.ElementType];
 
 const NavHome: React.FC = () => {
@@ -14,7 +15,10 @@ const NavHome: React.FC = () => {
     ["New Posts", "/newPosts", LuBellRing],
     ["Write a Post", "/write", BsPencilSquare],
   ];
-  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   return (
     <nav className="flex justify-between p-8 items-center overflow-hidden w-full h-24 border-2 border-slate-700">
@@ -38,7 +42,7 @@ const NavHome: React.FC = () => {
           );
         })}
       </ul>
-      <Button onClick={() => router.push("/")}>Sign Out</Button>
+      <Button onClick={handleLogout}>Sign Out</Button>
     </nav>
   );
 };
