@@ -1,6 +1,13 @@
 import { login, signup } from "./actions";
 import Nav from "@/components/nav";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "TonAcads Query | Log In",
+  description: "Log In Site",
+};
+
 export default function LoginPage() {
   return (
     <>

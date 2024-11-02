@@ -2,7 +2,7 @@
 
 ###
 
-<h3 align="left">👩‍💻  Welcome to AcadQry (Not the official name of this project.)</h3>
+<h3 align="left">👩‍💻  Welcome to TonAcads Report, Query, And Answer! (Not the official name of this project.)</h3>
 
 ###
 

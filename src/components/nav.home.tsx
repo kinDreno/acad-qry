@@ -24,7 +24,7 @@ const NavHome: React.FC = () => {
     <nav className="flex justify-between p-8 items-center overflow-hidden w-full h-24 border-2 border-slate-700">
       <Link href="/home" className="flex items-center">
         <PiHandshakeFill size={50} />
-        <h3 className="ml-2 text-lg font-bold">AcadQry!</h3>
+        <h3 className="ml-2 text-lg font-bold">TonAcads Query!</h3>
       </Link>
       <ul className="flex space-x-6 items-center">
         {navItems.map(([label, href, Icon], index) => {
@@ -32,7 +32,7 @@ const NavHome: React.FC = () => {
             <li key={index}>
               <Link
                 href={href}
-                className="flex items-center text-lg hover:text-blue-500 hover:underline transition duration-300"
+                className="flex items-center text-lg hover:text-indigo-700 hover:underline transition duration-300"
                 aria-label={label}
               >
                 <Icon className="mr-1" />
