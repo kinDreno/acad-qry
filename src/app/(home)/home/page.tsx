@@ -1,5 +1,10 @@
+import NavHome from "@/components/nav.home";
 const Page = () => {
-  return <></>;
+  return (
+    <>
+      <NavHome />
+    </>
+  );
 };
 
 export default Page;
