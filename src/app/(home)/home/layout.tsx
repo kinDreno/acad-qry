@@ -1,5 +1,6 @@
+import NavHome from "@/components/nav.home";
 import { Metadata } from "next";
-import Head from "next/head";
+import SidebarHome from "@/components/sidebar-home";
 export const metadata: Metadata = {
   title: "TonAcads Query | Main",
   description: "HELOW",
@@ -7,9 +8,8 @@ export const metadata: Metadata = {
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Head>
-        <link rel="icon" href="/hero.svg" type="image/svg+xml" />
-      </Head>
+      <NavHome />
+      <SidebarHome />
       {children}
     </>
   );

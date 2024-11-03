@@ -21,7 +21,7 @@ const NavHome: React.FC = () => {
   };
 
   return (
-    <nav className="flex justify-between p-8 items-center overflow-hidden w-full h-24 border-2 border-slate-700">
+    <nav className="flex justify-between p-8 items-center overflow-hidden w-full h-[15vh] border-2 border-slate-700">
       <Link href="/home" className="flex items-center">
         <PiHandshakeFill size={50} />
         <h3 className="ml-2 text-lg font-bold">TonAcads Query!</h3>

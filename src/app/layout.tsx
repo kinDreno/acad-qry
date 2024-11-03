@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "TonAcads Query | Main",
+  title: "TonAcads Query | Welcome",
   description: "HELOW",
 };
 
