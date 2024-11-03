@@ -9,8 +9,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <NavHome />
-      <SidebarHome />
-      {children}
+      <section className="flex w-screen h-full">
+        <SidebarHome />
+        {children}
+      </section>
     </>
   );
 };

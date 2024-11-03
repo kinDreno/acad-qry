@@ -47,8 +47,9 @@ const SidebarHome = () => {
             <Image
               src={"/ryangosling.jpg"}
               alt="profile picture of user"
-              height={50}
-              width={50}
+              height={33}
+              width={43}
+              style={{ width: "40px" }}
               className="rounded-full"
             />
             <div className="text-left ">
