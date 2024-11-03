@@ -10,19 +10,28 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get("type") as EmailOtpType | null;
   const next = searchParams.get("next") ?? "/";
 
+  const allowedRedirects = ["/"]; //allowed routes
+
   if (token_hash && type) {
     const supabase = await createClient();
-
     const { error } = await supabase.auth.verifyOtp({
       type,
       token_hash,
     });
     if (!error) {
-      //redirect user to specified redirect URL or root of app
-      redirect(next);
+      //validation of next redirect URL
+      if (allowedRedirects.includes(next)) {
+        redirect(next);
+      } else {
+        console.warn("Invalid redirect attempt:", next); //logging invalid redirect
+        redirect("/"); //fallback to default route if error occured.. the default route is '/'
+      }
+    } else {
+      console.error("OTP verification failed:", error);
+      redirect(`/error?message=${encodeURIComponent(error.message)}`);
     }
+  } else {
+    console.error("Missing token or type");
+    redirect(`/error?message=${encodeURIComponent("Missing token or type.")}`);
   }
-
-  //redirect the user to an error page with some instructions
-  redirect("/error");
 }

@@ -12,7 +12,7 @@ type NavItem = [string, string, React.ElementType];
 const NavHome: React.FC = () => {
   const navItems: NavItem[] = [
     ["Home", "/home", FaHome],
-    ["New Posts", "/newPosts", LuBellRing],
+    ["Your Posts", "/yourPosts", LuBellRing],
     ["Write a Post", "/write", BsPencilSquare],
   ];
 
