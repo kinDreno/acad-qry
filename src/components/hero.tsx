@@ -6,17 +6,17 @@ const Hero = () => {
   return (
     <>
       <main className="h-[70vh] w-full flex justify-center items-center">
-        <div className="bg-slate-800 w-[90%] flex h-[90%] rounded-lg mt-[15em]">
+        <div className=" backdrop-blur-md w-[90%] flex h-[90%] rounded-lg mt-[15em]">
           <section className="break-words text-left w-2/4 h-full p-8">
             <h1 className="text-slate-200 mb-2">
-              <b>Welcome to AcadQry!</b>
+              <b>Welcome to TonAcads Query!</b>
             </h1>
             <hr />
             <p className="text-3xl mt-2 text-slate-200">
               A web application where students from different schools and
               courses can inquire about{" "}
               <b>
-                <span className="text-indigo-500">academic matters.</span>
+                <span className="text-indigo-700">academic matters.</span>
               </b>{" "}
             </p>
             <br />
@@ -36,7 +36,7 @@ const Hero = () => {
               alt="Hero Image"
               src={"/hero.svg"}
               priority={true}
-              width={600}
+              width={700}
               height={0}
             />
           </section>

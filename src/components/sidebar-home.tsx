@@ -1,17 +1,8 @@
 import Image from "next/image";
 import { IoLogOutOutline } from "react-icons/io5";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import AlertDia from "./alert";
 import { Button } from "./ui/button";
+import { BsTypeH4 } from "react-icons/bs";
 
 const SidebarHome = () => {
   return (
@@ -58,30 +49,15 @@ const SidebarHome = () => {
             </div>
           </div>
           {/* pfft UI here! */}
-          <AlertDialog>
-            <AlertDialogTrigger>
-              <div className="p-4 bg-slate-200 rounded-3xl">
-                <IoLogOutOutline size={20} color="black" />
-              </div>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  Are you sure you want to log out?
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  Logging out will end your current session, and you will need
-                  to enter your credentials again to access your account. If you
-                  have unsaved changes or important information, please make
-                  sure to save them before proceeding.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Continue</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <AlertDia
+            dialogDescription={`
+                Logging out will end your current session, and you will need to
+                enter your credentials again to access your account. If you have
+                unsaved changes or important information, please make sure to
+                save them before proceeding.
+              `}
+            dialogTitle={"Are you sure you want to log out?"}
+          />
         </article>
       </div>
     </>

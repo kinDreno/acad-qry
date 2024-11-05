@@ -5,7 +5,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import { LuBellRing } from "react-icons/lu";
 import { FaHome } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { logout } from "@/app/logout/actions";
+import { logout } from "@/app/login/action-logout";
 
 type NavItem = [string, string, React.ElementType];
 
