@@ -28,10 +28,13 @@ model Post {
 }
 
 model User {
-  id      Int       @id @default(autoincrement())
-  name    String
-  age     Int?
-  email   String    @unique
-  Comment Comment[]
-  Post    Post[]
+  id          Int       @id @default(autoincrement())
+  firstName   String
+  course      String
+  lastName    String
+  collegeYear String
+  age         Int?
+  email       String    @unique
+  Comment     Comment[]
+  Post        Post[]
 }

@@ -12,8 +12,8 @@ type NavItem = [string, string, React.ElementType];
 const NavHome: React.FC = () => {
   const navItems: NavItem[] = [
     ["Home", "/home", FaHome],
-    ["Your Posts", "/yourPosts", LuBellRing],
-    ["Write a Post", "/write", BsPencilSquare],
+    ["Your Posts", "/home/yourPosts", LuBellRing],
+    ["Write a Post", "/home/write", BsPencilSquare],
   ];
 
   const handleLogout = async () => {

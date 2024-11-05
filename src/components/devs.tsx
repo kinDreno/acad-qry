@@ -53,7 +53,9 @@ const Devs = () => {
           <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
           <Boxes />
           <div className="text-center mt-4 z-50">
-            <h4 className="font-bold text-white text-3xl ml-4">Developers: </h4>
+            <h4 className="font-bold text-white text-3xl ml-4">
+              Developers and Contributors:{" "}
+            </h4>
           </div>
           <section
             id="grid"
