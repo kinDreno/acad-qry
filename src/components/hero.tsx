@@ -1,13 +1,16 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { BackgroundBeams } from "./ui/background-beams";
+
 const Hero = () => {
   const router = useRouter();
   return (
     <>
       <main className="h-[70vh] w-full flex justify-center items-center">
+        {" "}
         <div className=" backdrop-blur-md w-[90%] flex h-[90%] rounded-lg mt-[15em]">
-          <section className="break-words text-left w-2/4 h-full p-8">
+          <section className="break-words text-left w-2/4 h-full">
             <h1 className="text-slate-200 mb-2">
               <b>Welcome to TonAcads Query!</b>
             </h1>
@@ -38,9 +41,11 @@ const Hero = () => {
               priority={true}
               width={700}
               height={0}
+              style={{ width: "auto", height: "auto" }}
             />
           </section>
         </div>
+        <BackgroundBeams />
       </main>
     </>
   );

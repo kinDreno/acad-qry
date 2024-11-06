@@ -33,7 +33,6 @@ model User {
   course      String
   lastName    String
   collegeYear String
-  age         Int?
   email       String    @unique
   Comment     Comment[]
   Post        Post[]
