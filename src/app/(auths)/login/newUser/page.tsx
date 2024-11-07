@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import { updateProfile } from "./fillup";
 import Loading from "@/components/loading";
-export default function BackgroundBeamsDemo() {
+
+export default function Page() {
   //
   const [formData, setFormData] = useState({
-    fname: "",
-    lname: "",
+    firstName: "",
+    lastName: "",
     course: "",
   });
 
@@ -25,13 +26,13 @@ export default function BackgroundBeamsDemo() {
   };
 
   const convertToFormData = (data: {
-    fname: string;
-    lname: string;
+    firstName: string;
+    lastName: string;
     course: string;
   }) => {
     const formData = new FormData();
-    formData.append("fname", data.fname);
-    formData.append("lname", data.lname);
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
     formData.append("course", data.course);
     return formData;
   };
@@ -39,7 +40,7 @@ export default function BackgroundBeamsDemo() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formData.fname || !formData.lname || !formData.course) {
+    if (!formData.firstName || !formData.lastName || !formData.course) {
       alert("Please fill in all fields.");
       return;
     }
@@ -113,7 +114,7 @@ export default function BackgroundBeamsDemo() {
               type="text"
               id="fname"
               name="fname"
-              value={formData.fname}
+              value={formData.firstName}
               onChange={handleChange} // Handle change of the input value
               className="mt-1 p-2 rounded border border-gray-300 w-full"
             />
@@ -127,7 +128,7 @@ export default function BackgroundBeamsDemo() {
               type="text"
               id="lname"
               name="lname"
-              value={formData.lname}
+              value={formData.lastName}
               onChange={handleChange} // Handle change of the input value
               className="mt-1 p-2 rounded border border-gray-300 w-full"
             />

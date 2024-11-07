@@ -27,9 +27,10 @@ export async function login(formData: FormData) {
     redirect("/login/newUser");
   }
 
-  //handle additional logic here if needed
   return true; // Indicate success
 }
+
+//
 
 export async function signup(formData: FormData) {
   const supabase = await createClient();
