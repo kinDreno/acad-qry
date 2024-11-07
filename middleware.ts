@@ -10,10 +10,10 @@ export async function middleware(req: NextRequest) {
   );
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession(); //retrieves the user's session if auth or nah
+    data: { user },
+  } = await supabase.auth.getUser(); //retrieves the user's session if auth or nah
 
-  if (!session) {
+  if (!user) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 

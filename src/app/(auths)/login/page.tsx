@@ -5,12 +5,13 @@ import Nav from "@/components/nav";
 import Image from "next/image";
 
 export default function LoginPage() {
-  const [inp, setInp] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string>("");
 
+  // for signups
   async function handleSignup() {
-    if (inp.length < 6) {
+    if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
       return;
     } else if (!email.includes("@")) {
@@ -22,14 +23,16 @@ export default function LoginPage() {
     // Create a FormData object manually
     const formData = new FormData();
     formData.append("email", email);
-    formData.append("password", inp);
+    formData.append("password", password);
 
     // Call signup action
     await signup(formData);
   }
 
+  //
+  // handle loginsszzz
   async function handleLogin() {
-    if (inp.length < 6) {
+    if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
       return;
     } else if (!email.includes("@")) {
@@ -41,7 +44,7 @@ export default function LoginPage() {
     // Create a FormData object manually
     const formData = new FormData();
     formData.append("email", email);
-    formData.append("password", inp);
+    formData.append("password", password);
 
     // Call login action
     await login(formData);
@@ -86,8 +89,8 @@ export default function LoginPage() {
                 Password:
               </label>
               <input
-                value={inp}
-                onChange={(e) => setInp(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 id="password"
                 name="password"
                 type="password"

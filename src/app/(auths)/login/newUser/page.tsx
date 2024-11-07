@@ -1,12 +1,17 @@
 "use client";
-import React, { useState } from "react";
 
+import React, { useState } from "react";
+import { updateProfile } from "./fillup";
+import Loading from "@/components/loading";
 export default function BackgroundBeamsDemo() {
+  //
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
     course: "",
   });
+
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -19,20 +24,44 @@ export default function BackgroundBeamsDemo() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); //prevent the default form submission behavior
+  const convertToFormData = (data: {
+    fname: string;
+    lname: string;
+    course: string;
+  }) => {
+    const formData = new FormData();
+    formData.append("fname", data.fname);
+    formData.append("lname", data.lname);
+    formData.append("course", data.course);
+    return formData;
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     if (!formData.fname || !formData.lname || !formData.course) {
       alert("Please fill in all fields.");
       return;
     }
 
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+
+    try {
+      // Convert the form data to FormData format
+      const formDataToSend = convertToFormData(formData);
+      await updateProfile(formDataToSend); // Pass the FormData object
+    } catch (e) {
+      console.error(e);
+      alert(`An error has occured.. ${e}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   console.log(formData);
 
   return (
-    <div className="h-[100vh] w-full bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
+    <div className="h-[100vh] relative w-full bg-neutral-950 flex flex-col items-center justify-center antialiased">
       <div className="p-[8em] flex items-center justify-center rounded-md bg-gradient-to-br from-slate-500 from-10% via-slate-900 via-30% to-indigo-700 to-90%">
         {/* new User input their first name and last name */}
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,6 +105,10 @@ export default function BackgroundBeamsDemo() {
             <label htmlFor="fname" className="block text-white">
               First name:
             </label>
+
+            {/* Loading here */}
+            {isSubmitting && <Loading />}
+
             <input
               type="text"
               id="fname"
