@@ -1,33 +1,14 @@
 "use client";
 import { useState } from "react";
-import { login, signup } from "./actions";
+import { login } from "./actions";
 import Nav from "@/components/nav";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 export default function LoginPage() {
+  const router = useRouter();
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string>("");
-
-  // for signups
-  async function handleSignup() {
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
-      return;
-    } else if (!email.includes("@")) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-    setError("");
-
-    // Create a FormData object manually
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-
-    // Call signup action
-    await signup(formData);
-  }
 
   //
   // handle loginsszzz
@@ -110,8 +91,10 @@ export default function LoginPage() {
                 Log In
               </button>
               <button
-                type="button"
-                onClick={handleSignup}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/newUser");
+                }}
                 className="w-1/2 ml-2 bg-gray-300 text-gray-700 rounded-md p-2 hover:bg-gray-400 transition duration-200"
               >
                 Sign Up
