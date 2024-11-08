@@ -2,35 +2,37 @@
 import { prisma } from "@/utils/prisma";
 import { createClient } from "@/utils/supabase/server";
 
-export async function updateProfile(formData: FormData) {
+export async function signUp(formData: FormData) {
   const supabase = await createClient();
 
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-  const firstName = formData.get("firstName") as string;
-  const lastName = formData.get("lastName") as string;
-  const course = formData.get("course") as string;
-  const collegeYear = formData.get("collegeYear") as string;
+  const email = (formData.get("email") as string).trim();
+  const firstName = (formData.get("firstName") as string).trim();
+  const lastName = (formData.get("lastName") as string).trim();
+  const course = (formData.get("course") as string).trim();
+  const collegeYear = (formData.get("collegeYear") as string).trim();
+  const password = (formData.get("password") as string).trim();
 
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-    firstName: formData.get("firstName") as string,
-    lastName: formData.get("lastName") as string,
-    course: formData.get("course") as string,
-    collegeYear: formData.get("collegeYear") as string,
-  };
+  //checks if the email that will use in sign up already exists..
+  const existingUser = await prisma.user.findUnique({
+    where: { email: email },
+  });
 
-  const { error } = await supabase.auth.signUp(data);
+  //checks if the email that will use in sign up already exists..
+  if (existingUser) {
+    throw new Error("User with this email already exists.");
+  }
+
+  // proceed with setup
+  const { error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
-    throw new Error(error.message);
+    throw new Error(`An error has occured: ${error.message}`);
   }
+
   try {
     await prisma.user.create({
       data: {
         email: email,
-        password: password,
         firstName: firstName,
         lastName: lastName,
         course: course,
@@ -39,10 +41,11 @@ export async function updateProfile(formData: FormData) {
     });
 
     return { success: true, redirectUrl: "/home" };
-  } catch (e) {
-    console.error("Error creating user:", e);
-    throw new Error(
-      "An error occurred while saving user data to the database."
-    );
+  } catch (e: any) {
+    console.error("Error creating user:", e.message || e);
+    return {
+      success: false,
+      redirectUrl: "/newUser",
+    };
   }
 }

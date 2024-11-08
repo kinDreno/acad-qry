@@ -3,23 +3,26 @@ import { useState } from "react";
 import { login } from "./actions";
 import Nav from "@/components/nav";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 export default function LoginPage() {
-  const router = useRouter();
-
+  //
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   //
   // handle loginsszzz
-  async function handleLogin() {
-    if (password.length < 6) {
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault;
+    if (!password || !email) {
+      setError("All fields are required to fill in.");
+      return null;
+    } else if (password.length < 6) {
       setError("Password must be at least 6 characters long.");
-      return;
+      return null;
     } else if (!email.includes("@")) {
       setError("Please enter a valid email address.");
-      return;
+      return null;
     }
     setError("");
 
@@ -28,8 +31,15 @@ export default function LoginPage() {
     formData.append("email", email);
     formData.append("password", password);
 
-    // Call login action
-    await login(formData);
+    try {
+      const result = await login(formData);
+    } catch (e) {
+      console.error(e);
+      setError("Login failed. Please check your credentials and try again.");
+      alert(`An error has occured: ${e}`);
+    } finally {
+      setError("");
+    }
   }
 
   return (
@@ -39,7 +49,7 @@ export default function LoginPage() {
         <article className="h-full w-[40%] border-x-2 rounded-lg border-slate-800">
           <form // form????
             className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
-            onSubmit={(e) => e.preventDefault()} //prevent default form submit
+            onSubmit={handleLogin}
           >
             <h2 className="text-2xl font-bold mb-4 text-center">
               Welcome Back!
@@ -91,15 +101,12 @@ export default function LoginPage() {
               >
                 Log In
               </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  router.push("/newUser");
-                }}
-                className="w-1/2 ml-2 bg-gray-300 text-gray-700 rounded-md p-2 hover:bg-gray-400 transition duration-200"
+              <Link
+                href={"/newUser"}
+                className="w-1/2 ml-2 bg-gray-300 text-center text-black rounded-md p-2 hover:bg-gray-400 transition duration-200"
               >
-                Sign Up
-              </button>
+                Register
+              </Link>
             </div>
           </form>
         </article>

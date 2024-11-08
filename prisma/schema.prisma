@@ -34,7 +34,6 @@ model User {
   lastName    String
   collegeYear String
   email       String    @unique
-  password    String
   Comment     Comment[]
   Post        Post[]
 }

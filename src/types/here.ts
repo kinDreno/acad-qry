@@ -18,7 +18,7 @@ export type DeveloperTypes = {
   socials: SocialLink[];
 };
 
-export type Login = {
+export type SignIn = {
   email: string;
   password: string;
   firstName: string;
