@@ -4,13 +4,16 @@ import { updateProfile } from "./fillup";
 import Loading from "@/components/loading";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import Alert from "./alert";
+import { Login } from "@/types/here";
+
 import { useRouter } from "next/navigation";
 export default function Page() {
   //
   const router = useRouter();
   const [error, setError] = useState<boolean>(false);
+  const [descError, setDescError] = useState<string | null>("");
   const [toggleView, setToggleView] = useState<boolean>(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Login>({
     email: "",
     password: "",
     firstName: "",
@@ -40,14 +43,25 @@ export default function Page() {
     course: string;
     collegeYear: string;
   }) => {
-    const formData = new FormData();
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
-    formData.append("course", data.course);
-    formData.append("collegeYear", data.collegeYear);
-    return formData;
+    //
+    if (!data.email.includes("@") || !data.email.includes("@gmail.com")) {
+      setError(true);
+      setDescError("Email field requires '@' to identify a certain email. ");
+      return null;
+    } else if (data.password.length < 6) {
+      setError(true);
+      setDescError("Password must be at least 6 letters long.");
+      return null;
+    }
+
+    const formsData = new FormData();
+    formsData.append("email", data.email);
+    formsData.append("password", data.password);
+    formsData.append("firstName", data.firstName);
+    formsData.append("lastName", data.lastName);
+    formsData.append("course", data.course);
+    formsData.append("collegeYear", data.collegeYear);
+    return formsData;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,6 +75,7 @@ export default function Page() {
       !formData.course ||
       !formData.collegeYear //....
     ) {
+      setDescError("All fields are required to fill in.");
       setError(true);
       return;
     }
@@ -70,14 +85,15 @@ export default function Page() {
     try {
       // Convert the form data to FormData format
       const formDataToSend = convertToFormData(formData);
-      const result = await updateProfile(formDataToSend);
+      if (!formDataToSend) return;
 
+      const result = await updateProfile(formDataToSend);
       if (result.success) {
         router.push(result.redirectUrl);
       }
     } catch (e) {
       console.error(e);
-      alert(`An error has occured.. ${e}`);
+      alert(`An error has occured: ${e}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -94,10 +110,10 @@ export default function Page() {
             <Loading />
           </div>
         )}
-        {error && <Alert close={() => setError(false)} />}
+        {error && <Alert errorDesc={descError} close={() => setError(false)} />}
         {/* new User input their first name and last name */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <h3 className="text-3xl text-white">
+          <h3 className="text-3xl text-center text-white">
             Hello there, new user! <br />
             Kindly fill up the forms, thank you!
           </h3>
@@ -228,7 +244,7 @@ export default function Page() {
             type="submit"
             className="mt-4 p-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
           >
-            Sign Up
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </form>
       </div>

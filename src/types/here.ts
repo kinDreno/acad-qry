@@ -17,3 +17,12 @@ export type DeveloperTypes = {
   role: string;
   socials: SocialLink[];
 };
+
+export type Login = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  course: string;
+  collegeYear: string;
+};
