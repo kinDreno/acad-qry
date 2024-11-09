@@ -6,13 +6,11 @@ import { FaEyeSlash, FaEye } from "react-icons/fa";
 import Alert from "./alert";
 import { SignIn } from "@/types/here";
 
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 export default function Page() {
   //
-  const router = useRouter();
   const [error, setError] = useState<boolean>(false);
-  const [descError, setDescError] = useState<string | null>("");
+  const [descError, setDescError] = useState<string | String>("");
   const [toggleView, setToggleView] = useState<boolean>(false);
   const [formData, setFormData] = useState<SignIn>({
     email: "",
@@ -85,7 +83,8 @@ export default function Page() {
 
       const result = await signUp(formDataToSend);
       if (result.success) {
-        router.push(result.redirectUrl);
+        setError(true);
+        setDescError(result.status);
       }
     } catch (e) {
       console.error(e);

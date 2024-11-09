@@ -5,8 +5,6 @@ export const metadata: Metadata = {
   description: "Log In Site",
 };
 
-import React from "react";
-
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };

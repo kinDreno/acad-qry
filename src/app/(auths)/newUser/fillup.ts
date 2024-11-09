@@ -12,12 +12,10 @@ export async function signUp(formData: FormData) {
   const collegeYear = (formData.get("collegeYear") as string).trim();
   const password = (formData.get("password") as string).trim();
 
-  //checks if the email that will use in sign up already exists..
   const existingUser = await prisma.user.findUnique({
     where: { email: email },
   });
 
-  //checks if the email that will use in sign up already exists..
   if (existingUser) {
     throw new Error("User with this email already exists.");
   }
@@ -40,12 +38,15 @@ export async function signUp(formData: FormData) {
       },
     });
 
-    return { success: true, redirectUrl: "/home" };
+    return {
+      success: true,
+      status: "Account created. An email confirmation is sent to your email.",
+    };
   } catch (e: any) {
     console.error("Error creating user:", e.message || e);
     return {
       success: false,
-      redirectUrl: "/newUser",
+      status: "Error creating user.",
     };
   }
 }

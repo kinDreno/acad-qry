@@ -4,8 +4,11 @@ import { login } from "./actions";
 import Nav from "@/components/nav";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function LoginPage() {
   //
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -13,7 +16,7 @@ export default function LoginPage() {
   //
   // handle loginsszzz
   async function handleLogin(e: React.FormEvent) {
-    e.preventDefault;
+    e.preventDefault();
     if (!password || !email) {
       setError("All fields are required to fill in.");
       return null;
@@ -25,6 +28,7 @@ export default function LoginPage() {
       return null;
     }
     setError("");
+    setLoading(true);
 
     // Create a FormData object manually
     const formData = new FormData();
@@ -33,12 +37,19 @@ export default function LoginPage() {
 
     try {
       const result = await login(formData);
+
+      if (!result.success) {
+        setError(result.status);
+      } else {
+        setError("");
+        router.push("/home");
+      }
     } catch (e) {
       console.error(e);
       setError("Login failed. Please check your credentials and try again.");
       alert(`An error has occured: ${e}`);
     } finally {
-      setError("");
+      setLoading(false);
     }
   }
 
@@ -95,11 +106,11 @@ export default function LoginPage() {
 
             <div className="flex justify-between">
               <button
-                type="button"
-                onClick={handleLogin}
+                type="submit"
+                disabled={loading}
                 className="w-1/2 bg-indigo-600 text-white rounded-md p-2 hover:bg-indigo-700 transition duration-200"
               >
-                Log In
+                {loading ? "Logging In.." : "Log In"}
               </button>
               <Link
                 href={"/newUser"}
