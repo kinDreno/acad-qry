@@ -4,14 +4,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Headroom from "react-headroom";
 import { FaGithub } from "react-icons/fa";
-
+import { ModeToggle } from "./mode-toggle";
 const Nav: React.FC = () => {
   const [isPinned, setIsPinned] = useState(false);
 
   return (
     <Headroom
-      downTolerance={3} // Sensitivity for scrolling down
-      upTolerance={3} // Sensitivity for scrolling up
       style={{ zIndex: 50 }}
       onPin={() => setIsPinned(false)}
       onUnpin={() => setIsPinned(true)}
@@ -26,7 +24,9 @@ const Nav: React.FC = () => {
         <section className="flex items-center space-x-5">
           <Link href="/" className="flex items-center">
             <PiHandshakeFill size={50} />
-            <h3 className="ml-2 text-lg font-bold">AcadQry!</h3>
+            <h3 className="ml-2 text-lg text-white dark:text-slate-900 font-bold">
+              AcadQry!
+            </h3>
           </Link>{" "}
           <h4 style={{ fontSize: "20px" }}>|</h4>
           <Link href={"https://github.com/kinDreno/acad-qry"}>
@@ -49,6 +49,7 @@ const Nav: React.FC = () => {
               </Link>
             </li>
           ))}
+          <ModeToggle />
         </ul>
       </nav>
     </Headroom>
