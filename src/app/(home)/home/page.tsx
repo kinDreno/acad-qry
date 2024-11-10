@@ -6,7 +6,7 @@ import { FaComment } from "react-icons/fa6";
 import { useState } from "react";
 
 const Page = () => {
-  // ALL POSTS ARE HERE AND NOT FILTERED.
+  // ALL POSTS ARE HERE AND NOT FILTERED. Will also add an infinite scroll feature with TanStack Query.
   // I am still working on the UI Designs right now in this project and will soon deploy this for beta testing
   // will work soon on database and querying!
 

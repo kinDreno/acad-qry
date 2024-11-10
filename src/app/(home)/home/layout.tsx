@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import SidebarHome from "@/components/sidebar-home";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import MobileHomeNav from "@/components/mobile-home-nav";
+
 export const metadata: Metadata = {
   title: "TonAcads Query | Main",
   description: "HELOW",
@@ -17,6 +19,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <NavHome />
+      <MobileHomeNav />
       <section className="flex w-screen h-full">
         <SidebarHome />
         {children}

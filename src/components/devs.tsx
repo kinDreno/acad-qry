@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { DeveloperTypes } from "@/types/here";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { Boxes } from "./ui/background-boxes";
 const Devs = () => {
   const profiles: DeveloperTypes[] = [
     {
@@ -48,34 +47,36 @@ const Devs = () => {
 
   return (
     <>
-      <main className="flex items-center justify-center w-full h-[50%] bg-black">
-        <div className="h-[20%] relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg">
-          <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
-          <Boxes />
-          <div className="text-center mt-4 z-50">
-            <h4 className="font-bold text-white text-3xl ml-4">
-              Developers and Contributors:{" "}
-            </h4>
-          </div>
-          <section
-            id="grid"
-            className="flex justify-center items-center space-x-4 h-[20%] w-[50%] p-4"
-          >
+      <main
+        style={{
+          backgroundImage: "url(dev-section-bg.avif)",
+          filter: "blue(5px)",
+        }}
+        className="flex-col items-center justify-center w-full h-[50%] max-md:h-[60%] bg-black"
+      >
+        <h1
+          className="text-center p-3 text-white text-3xl font-bold"
+          style={{ textShadow: "0 0 5px indigo" }}
+        >
+          Developers and Contributors:
+        </h1>
+        <main className="flex justify-center items-center">
+          <section className="flex justify-center items-center max-lg:w-[80%] max-md:space-y-3 max-md:flex-col max-md:justify-center max-md:items-center space-x-4 max-md:w-[100%] w-[60%] h-[40%] p-4">
             {profiles.map((profile, index) => (
               <article
                 key={index}
-                className="transition-all backdrop-blur-md transform hover:-translate-y-6 flex space-y-5 space-x-5 text-center w-[40%] h-full border-2 rounded-lg border-slate-800 border-opacity-35"
+                className="transition-all backdrop-blur-md p-1 transform md:hover:-translate-y-6 flex text-center max-md:w-[60%] w-[40%] h-full border-2 rounded-lg border-slate-800 border-opacity-35"
               >
-                <div className="flex ml-4 justify-center items-center w-[20%] h-[7em]">
+                <div className="flex justify-center items-center p-1 w-[20%] max-xl:w-[70%] max-md:w-[100%] h-[7em]">
                   <Image
                     src={profile.img}
                     alt="pic of dev(s)"
-                    width={80}
+                    width={60}
                     height={80}
                     className="rounded-full"
                   />
                 </div>
-                <section>
+                <section className="w-full h-full">
                   <div className="block text-left">
                     <h5 className="text-slate-200">{profile.name}</h5>
                     <h6 className="text-md text-slate-200">{profile.role}</h6>
@@ -88,7 +89,7 @@ const Devs = () => {
                         href={social.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-600 hover:text-slate-800 transition duration-300"
+                        className="text-slate-200 hover:text-slate-600 transition duration-300"
                       >
                         <social.Icon size={24} className="" />
                       </a>
@@ -98,7 +99,7 @@ const Devs = () => {
               </article>
             ))}
           </section>
-        </div>
+        </main>
       </main>
     </>
   );

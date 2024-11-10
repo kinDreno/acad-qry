@@ -56,8 +56,8 @@ export default function LoginPage() {
   return (
     <>
       <Nav />
-      <main className="flex justify-center h-screen p-[12em]">
-        <article className="h-full w-[40%] border-x-2 rounded-lg border-slate-800">
+      <main className="flex justify-center h-screen p-[12em] max-sm:p-[6em] bg-gradient-to-tl from-black from-15% via-slate-700 via-40% to-slate-400 to-65%">
+        <article className="h-full w-[40%] max-sm:border-none max-sm: max-xl:w-[80%] max-md:w-[100vh] border-x-2 rounded-lg border-slate-800">
           <form // form????
             className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
             onSubmit={handleLogin}
@@ -104,24 +104,24 @@ export default function LoginPage() {
 
             {error && <p className="text-red-600 mb-4">{error}</p>}
 
-            <div className="flex justify-between">
+            <div className="flex justify-between max-sm:justify-center max-sm:items-center max-sm:flex-col">
               <button
                 type="submit"
                 disabled={loading}
-                className="w-1/2 bg-indigo-600 text-white rounded-md p-2 hover:bg-indigo-700 transition duration-200"
+                className="w-1/2 max-sm:w-1/2 max-sm:h-1/4 bg-indigo-600 text-white rounded-md p-2 hover:bg-indigo-700 transition duration-200"
               >
                 {loading ? "Logging In.." : "Log In"}
               </button>
               <Link
                 href={"/newUser"}
-                className="w-1/2 ml-2 bg-gray-300 text-center text-black rounded-md p-2 hover:bg-gray-400 transition duration-200"
+                className="w-1/2 max-sm:mt-2 max-sm:w-1/2 max-sm:h-1/4 bg-gray-300 text-center text-black rounded-md p-2 hover:bg-gray-400 transition duration-200"
               >
                 Register
               </Link>
             </div>
           </form>
         </article>
-        <article className="block space-y-4 h-[100%] w-[80%]">
+        <article className="max-xl:hidden block space-y-4 h-[100%] w-[80%] ">
           <Image
             src={"/password.svg"}
             alt="login sticker"
@@ -131,7 +131,7 @@ export default function LoginPage() {
             className="h-[90%]"
             priority={false}
           />
-          <h5 className="text-center font-bold">
+          <h5 className="text-center font-bold text-slate-200">
             "Being a student or young doesn't mean you know nothing. <br />{" "}
             Speak up and let your voice be heard!"
           </h5>

@@ -15,6 +15,9 @@ model Comment {
   postId    Int
   Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   User      User     @relation(fields: [userId], references: [id])
+
+  // Add an index to userId for faster queries filtering by user
+  @@index([userId])
 }
 
 model Post {
@@ -23,12 +26,17 @@ model Post {
   title    String    @db.VarChar(40)
   content  String
   userId   Int
+  tag      String
   Comment  Comment[]
   User     User      @relation(fields: [userId], references: [id])
+
+  // Add an index to userId for faster queries filtering by user
+  @@index([userId])
 }
 
 model User {
   id          Int       @id @default(autoincrement())
+  uid         String    @unique
   firstName   String
   course      String
   lastName    String
@@ -36,4 +44,9 @@ model User {
   email       String    @unique
   Comment     Comment[]
   Post        Post[]
+
+  // Add an index to email for faster lookups
+  @@index([email])
+  // Add an index to uid for faster lookups (especially useful for authentication)
+  @@index([uid])
 }

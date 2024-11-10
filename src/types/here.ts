@@ -26,3 +26,9 @@ export type SignIn = {
   course: string;
   collegeYear: string;
 };
+
+export type Post = {
+  title: string;
+  content: string;
+  tag: string;
+};

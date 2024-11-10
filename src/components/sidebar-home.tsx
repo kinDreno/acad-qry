@@ -1,15 +1,13 @@
 import Image from "next/image";
-import { IoLogOutOutline } from "react-icons/io5";
 import AlertDia from "./alert";
 import { Button } from "./ui/button";
-import { BsTypeH4 } from "react-icons/bs";
 
 const SidebarHome = () => {
   return (
     <>
       <div
         id="sidebar"
-        className="border-r-2 border-r-slate-800 w-[20vw] h-[85vh] overflow-y-scroll"
+        className="border-r-2 border-r-slate-800 w-[20vw] max-md:hidden h-[85vh] overflow-y-scroll"
       >
         <section className="h-[85%] w-full">
           <div className="flex space-y-5 justify-around items-center ">
