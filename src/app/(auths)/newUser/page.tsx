@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function Page() {
   //
   const [error, setError] = useState<boolean>(false);
-  const [descError, setDescError] = useState<string | String>("");
+  const [descError, setDescError] = useState<string>("");
   const [toggleView, setToggleView] = useState<boolean>(false);
   const [formData, setFormData] = useState<SignIn>({
     email: "",

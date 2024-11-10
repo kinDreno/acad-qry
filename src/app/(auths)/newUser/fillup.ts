@@ -42,8 +42,8 @@ export async function signUp(formData: FormData) {
       success: true,
       status: "Account created. An email confirmation is sent to your email.",
     };
-  } catch (e: any) {
-    console.error("Error creating user:", e.message || e);
+  } catch (e) {
+    console.error("Error creating user:", e);
     return {
       success: false,
       status: "Error creating user.",

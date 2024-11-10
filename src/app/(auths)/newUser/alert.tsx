@@ -6,7 +6,7 @@ const Alert = ({
   errorDesc,
 }: {
   close: () => void;
-  errorDesc: string | String;
+  errorDesc: string;
 }) => {
   return (
     <>
