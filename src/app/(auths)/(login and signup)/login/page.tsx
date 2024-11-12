@@ -62,7 +62,7 @@ export default function LoginPage() {
             className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
             onSubmit={handleLogin}
           >
-            <h2 className="text-2xl font-bold mb-4 text-center">
+            <h2 className="text-2xl font-bold mb-4 text-center dark:text-black">
               Welcome Back!
             </h2>
 

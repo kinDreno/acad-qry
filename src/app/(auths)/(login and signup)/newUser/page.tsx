@@ -103,7 +103,7 @@ export default function Page() {
       style={{ backgroundImage: "url(/books-bbg.jpg)" }}
       className="h-[100vh] relative w-full bg-neutral-950 flex flex-col items-center justify-center antialiased"
     >
-      <div className="py-[1em] px-[12em] shadow-md shadow-slate-500/30 flex items-center justify-center rounded-md bg-gradient-to-br from-slate-500 from-15%% via-slate-900 via-40%% to-indigo-950 to-65%">
+      <div className="py-[1em] max-md:px-[2em] px-[12em] shadow-md shadow-slate-500/30 flex items-center justify-center rounded-md bg-gradient-to-br from-slate-500 from-15%% via-slate-900 via-40%% to-indigo-950 to-65%">
         {/* Loading here */}
         {isSubmitting && (
           <div className="transition-all">
@@ -112,7 +112,7 @@ export default function Page() {
         )}
         {error && <Alert errorDesc={descError} close={() => setError(false)} />}
         {/* new User input their first name and last name */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 w-full">
           <h3 className="text-3xl text-center text-white">Create an account</h3>
 
           <div>
@@ -148,13 +148,9 @@ export default function Page() {
                   setToggleView(!toggleView);
                   e.preventDefault();
                 }}
-                className="text-white bg-white px-2 mt-1 border rounded-br"
+                className=" bg-white px-2 mt-1 border rounded-br border-white dark:bg-slate-800"
               >
-                {toggleView ? (
-                  <FaEyeSlash color="black" />
-                ) : (
-                  <FaEye color="black" />
-                )}
+                {toggleView ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
           </div>
@@ -246,7 +242,7 @@ export default function Page() {
             disabled={isSubmitting}
             className="mt-4 w-full min-h-12 bg-indigo-600 text-white rounded hover:bg-indigo-700 "
           >
-            {isSubmitting ? "Submitting..." : "Submit"}
+            {isSubmitting ? "Submitting..." : "Sign Up"}
           </button>
           <Link href={"/login"} className="text-white hover:underline text-lg">
             Already have an account?

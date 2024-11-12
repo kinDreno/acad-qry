@@ -13,7 +13,10 @@ export async function login(formData: FormData) {
     });
 
     if (!existingUser) {
-      return { status: "This Email is not yet registered.", success: false };
+      return {
+        status: "No account is created with this email.",
+        success: false,
+      };
     }
 
     const { error } = await supabase.auth.signInWithPassword({

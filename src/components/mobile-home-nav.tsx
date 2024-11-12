@@ -5,7 +5,7 @@ import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { logout } from "@/app/(auths)/login/action-logout";
+import { logout } from "@/app/(auths)/(login and signup)/login/action-logout";
 const MobileHomeNav = () => {
   const [search, setSearch] = useState<string>("");
   const [view, setView] = useState<boolean>(false);

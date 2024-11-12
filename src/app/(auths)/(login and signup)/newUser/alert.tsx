@@ -16,9 +16,11 @@ const Alert = ({
           animate={{ scale: 1, opacity: 1 }} // Grow to full size and visible
           exit={{ scale: 0, opacity: 0 }} // Animate out with reverse effect
           transition={{ duration: 0.3, ease: "easeInOut" }} // Control timing
-          className="flex justify-center items-center border-2 rounded-lg bg-black h-[20%] w-[40%] space-x-3"
+          className="flex justify-center items-center border-2 rounded-lg bg-black h-[20%] max-md:h-[20%] p-2 max-md:w-[80%] w-[40%] space-x-3"
         >
-          <h4 className="font-bold text-white text-4xl">{errorDesc}</h4>
+          <h4 className="font-bold text-white text-4xl max-md:text-md">
+            {errorDesc}
+          </h4>
           <button
             onClick={close}
             className="text-white p-4 bg-slate-800 rounded-md"
