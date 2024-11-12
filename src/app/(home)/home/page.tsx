@@ -11,7 +11,7 @@ const Page = () => {
   // will work soon on database and querying!
 
   const [star, setStar] = useState<boolean>(false);
-  let [char, setChar] = useState<number>(0);
+  let char = 0;
   return (
     <>
       <main className="overflow-y-scroll h-full w-[80%] space-y-3 flex justify-center items-center">

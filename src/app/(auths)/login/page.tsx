@@ -132,8 +132,8 @@ export default function LoginPage() {
             priority={false}
           />
           <h5 className="text-center font-bold text-slate-200">
-            "Being a student or young doesn't mean you know nothing. <br />{" "}
-            Speak up and let your voice be heard!"
+            &quot;Being a student or young doesn't mean you know nothing. <br />{" "}
+            Speak up and let your voice be heard!&quot;
           </h5>
         </article>
       </main>

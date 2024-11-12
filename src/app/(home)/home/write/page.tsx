@@ -31,7 +31,9 @@ export default function App() {
 
     try {
       const { data, error } = await supabase.auth.getUser();
-
+      if (error) {
+        throw new Error("An error has occured");
+      }
       const userId = data?.user?.id ? parseInt(data.user.id, 10) : null;
 
       if (!userId) {
