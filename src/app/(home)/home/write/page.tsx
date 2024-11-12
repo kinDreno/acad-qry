@@ -1,10 +1,13 @@
 "use client";
-import { Textarea } from "@nextui-org/input";
-import { IoMdAlert } from "react-icons/io";
-import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import { Post } from "@/types/here";
+import { IoMdAlert } from "react-icons/io";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/utils";
+
 export default function App() {
+  const router = useRouter();
   const [writePost, setWritePost] = useState<Post>({
     title: "",
     content: "",
@@ -12,15 +15,53 @@ export default function App() {
   });
 
   function handleChangeValues(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) {
     const { name, value } = e.target;
-
     setWritePost((formData) => ({
       ...formData,
       [name]: value,
     }));
   }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    try {
+      const { data, error } = await supabase.auth.getUser();
+
+      const userId = data?.user?.id ? parseInt(data.user.id, 10) : null;
+
+      if (!userId) {
+        console.error("User is not authenticated.");
+        router.push("/");
+        return;
+      }
+
+      const response = await fetch("/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...writePost,
+          userId,
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        console.log("Post created:", result);
+      } else {
+        console.error("Error creating post:", result.message);
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    }
+  }
+
   return (
     <>
       <main className="flex max-h-[40%] w-full relative">
@@ -30,7 +71,7 @@ export default function App() {
             <h4 className="font-bold">
               Create Post | Read the rules before your post.
             </h4>
-            <form className="h-full w-full">
+            <form className="h-full w-full" onSubmit={handleSubmit}>
               <section className="block">
                 <label htmlFor="tag">Tag:</label>
                 <select
@@ -46,10 +87,9 @@ export default function App() {
               </section>
               <section>
                 <label htmlFor="title">Title:</label>
-                <Input
+                <input
                   value={writePost.title}
                   onChange={handleChangeValues}
-                  isRequired
                   type="title"
                   name="title"
                   className="max-w-[100%] border-2 text-left rounded-sm"
@@ -58,15 +98,14 @@ export default function App() {
               <br />
               <section>
                 <label htmlFor="content">Content: </label>
-                <Textarea
+                <textarea
                   name="content"
                   onChange={handleChangeValues}
                   value={writePost.content}
                   className="max-w-[100%] border-2 text-left rounded-sm"
-                  isRequired
-                  labelPlacement="inside"
                 />
               </section>
+              <Button type="submit">Post</Button>
             </form>
           </div>
         </div>
@@ -81,7 +120,7 @@ export default function App() {
               <li className="text-white">
                 &#8226; All posts, comments and discussions here must be
                 academics related. If they aren't, they will be removed. This
-                rule also cover irrelevant posts.
+                rule also covers irrelevant posts.
               </li>
               <li className="text-white">
                 &#8226; Do not spam or promote anything here. Posts asking for
@@ -89,15 +128,15 @@ export default function App() {
               </li>
               <li className="text-white">
                 &#8226; Follow appropriate etiquette. This includes being nice,
-                civil and helpful to one another, disrespectful posts/comments
+                civil, and helpful to one another; disrespectful posts/comments
                 will be removed. Do not make sexist or racist remarks.
               </li>
               <li className="text-white">
                 &#8226; You are not allowed to use{" "}
                 <b>
-                  Racial slurs, Inappropriate Messages, or any messages that may
-                  offend people.{" "}
-                </b>
+                  Racial slurs, inappropriate messages, or any messages that may
+                  offend people.
+                </b>{" "}
                 Doing so will result in a ban.
               </li>
             </ul>
