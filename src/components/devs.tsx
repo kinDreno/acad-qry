@@ -49,14 +49,14 @@ const Devs = () => {
     <>
       <main
         style={{
-          backgroundImage: "url(dev-section-bg.avif)",
+          backgroundImage: "url(dev-sect.avif)",
           filter: "blue(5px)",
         }}
         className="flex-col items-center justify-center w-full h-[50%] max-md:h-[60%] bg-black"
       >
         <h1
           className="text-center p-3 text-white text-3xl font-bold"
-          style={{ textShadow: "0 0 5px indigo" }}
+          style={{ textShadow: "0 0 5px black" }}
         >
           Developers and Contributors:
         </h1>

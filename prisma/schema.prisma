@@ -16,7 +16,6 @@ model Comment {
   Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   User      User     @relation(fields: [userId], references: [id])
 
-  // Add an index to userId for faster queries filtering by user
   @@index([userId])
 }
 
@@ -30,7 +29,6 @@ model Post {
   Comment  Comment[]
   User     User      @relation(fields: [userId], references: [id])
 
-  // Add an index to userId for faster queries filtering by user
   @@index([userId])
 }
 
@@ -45,8 +43,6 @@ model User {
   Comment     Comment[]
   Post        Post[]
 
-  // Add an index to email for faster lookups
   @@index([email])
-  // Add an index to uid for faster lookups (especially useful for authentication)
   @@index([uid])
 }

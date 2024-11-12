@@ -6,7 +6,7 @@ import Headroom from "react-headroom";
 import { FaGithub } from "react-icons/fa";
 import { ModeToggle } from "./mode-toggle";
 import MobileNav from "./mobile-nav";
-import { motion } from "framer-motion";
+
 const Nav: React.FC = () => {
   const [isPinned, setIsPinned] = useState(false);
   const [open, isOpen] = useState<boolean>(false);
@@ -18,6 +18,7 @@ const Nav: React.FC = () => {
       document.body.style.overflow = "auto";
     }
   }, [open]);
+
   return (
     <>
       <Headroom
@@ -35,14 +36,16 @@ const Nav: React.FC = () => {
           <section className="flex items-center space-x-5">
             <Link href="/" className="flex items-center">
               <PiHandshakeFill size={50} />
-              <h3 className="ml-2 text-lg  text-white dark:text-slate-900 font-bold">
-                AcadQry!
-              </h3>
+              <h3 className="ml-2 text-lg  font-bold">AcadQry!</h3>
             </Link>{" "}
             <h4 style={{ fontSize: "20px" }}>|</h4>
             <Link href={"https://github.com/kinDreno/acad-qry"}>
               <FaGithub size={30} />
             </Link>
+            <h4 className="text-[20px] max-md:block hidden">|</h4>
+            <div className="max-md:block hidden">
+              <ModeToggle />
+            </div>
           </section>
 
           <ul className="flex space-x-6 items-center max-md:hidden">
@@ -65,45 +68,44 @@ const Nav: React.FC = () => {
           <MobileNav state={() => isOpen(!open)} />
         </nav>
       </Headroom>
-      <motion.div
-        animate={{ x: !open ? 900 : 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 39,
-          ease: "easeInOut",
-          duration: 0.5,
-        }}
-        className={` absolute z-50 bg-black/50 ${
-          !open ? "hidden" : "block"
-        } h-screen w-full`}
+
+      {/* Sidebar and overlay */}
+      <div
+        className={`fixed z-50 inset-0 bg-black/50 transition-opacity duration-300 ${
+          open ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => isOpen(false)}
+      ></div>
+
+      <div
+        className={`fixed top-0 right-0 w-[250px] h-full bg-black z-50 transform transition-transform duration-500 ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <article className="w-[250px] h-[100vh] bg-black fixed top-0 right-0 ">
-          <ul className="w-full h-full flex flex-col text-right p-6  space-y-4">
-            <button
-              onClick={() => isOpen(!open)}
-              className="text-white p-3 rounded-md border-2"
-            >
-              Close | &#10006;
-            </button>
-            <hr />
-            {[
-              ["About", "#about"],
-              ["Developers", "#developers"],
-              ["Features", "#features"],
-            ].map(([label, href], index) => (
-              <li key={index}>
-                <Link
-                  href={href}
-                  className="text-lg text-white hover:text-blue-500 hover:underline transition duration-300"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </article>
-      </motion.div>
+        <ul className="w-full h-full flex flex-col text-right p-6 space-y-4">
+          <button
+            onClick={() => isOpen(false)}
+            className="text-white p-3 rounded-md border-2"
+          >
+            Close | &#10006;
+          </button>
+          <hr />
+          {[
+            ["About", "#about"],
+            ["Developers", "#developers"],
+            ["Features", "#features"],
+          ].map(([label, href], index) => (
+            <li key={index}>
+              <Link
+                href={href}
+                className="text-lg text-white hover:text-blue-500 hover:underline transition duration-300"
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 };

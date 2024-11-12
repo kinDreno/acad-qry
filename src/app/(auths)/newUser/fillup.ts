@@ -20,12 +20,21 @@ export async function signUp(formData: FormData) {
     throw new Error("User with this email already exists.");
   }
 
-  // proceed with setup
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
   if (error) {
-    throw new Error(`An error has occured: ${error.message}`);
+    throw new Error(`An error has occurred: ${error.message}`);
   }
+
+  const user = data?.user;
+  if (!user || !user.id) {
+    throw new Error("Could not retrieve user ID from Supabase.");
+  }
+
+  const uid = user.id;
 
   try {
     await prisma.user.create({
@@ -34,19 +43,21 @@ export async function signUp(formData: FormData) {
         firstName: firstName,
         lastName: lastName,
         course: course,
+        uid: uid,
         collegeYear: collegeYear,
       },
     });
 
     return {
       success: true,
-      status: "Account created. An email confirmation is sent to your email.",
+      status:
+        "Account created. An email confirmation has been sent to your email.",
     };
   } catch (e) {
     console.error("Error creating user:", e);
     return {
       success: false,
-      status: "Error creating user.",
+      status: "Error creating user in the database.",
     };
   }
 }

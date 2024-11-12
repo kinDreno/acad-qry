@@ -18,7 +18,9 @@ const Hero = () => {
               A web application where students from different schools and
               courses can inquire about{" "}
               <b>
-                <span className="text-indigo-700">academic matters.</span>
+                <span className="text-indigo-700 dark:text-indigo-600">
+                  academic matters.
+                </span>
               </b>{" "}
             </p>
             <br />
