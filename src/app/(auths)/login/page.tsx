@@ -110,6 +110,7 @@ export default function LoginPage() {
                 disabled={loading}
                 className="w-1/2 max-sm:w-1/2 max-sm:h-1/4 bg-indigo-600 text-white rounded-md p-2 hover:bg-indigo-700 transition duration-200"
               >
+                ''
                 {loading ? "Logging In.." : "Log In"}
               </button>
               <Link
@@ -132,8 +133,8 @@ export default function LoginPage() {
             priority={false}
           />
           <h5 className="text-center font-bold text-slate-200">
-            &quot;Being a student or young doesn't mean you know nothing. <br />{" "}
-            Speak up and let your voice be heard!&quot;
+            &quot;Being a student or young doesn&apos;t mean you know nothing.{" "}
+            <br /> Speak up and let your voice be heard!&quot;
           </h5>
         </article>
       </main>

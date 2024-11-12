@@ -24,7 +24,7 @@ const SidebarHome = () => {
             </h3>
             <h5>
               {/*Title of the post here.*/} Pineapple Pizzas are delicious, the
-              internet told you that it isn't.
+              internet told you that it isn&apos;t.
             </h5>
           </article>
         </section>

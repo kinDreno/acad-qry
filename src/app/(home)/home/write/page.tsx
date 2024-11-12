@@ -121,8 +121,8 @@ export default function App() {
               </li>
               <li className="text-white">
                 &#8226; All posts, comments and discussions here must be
-                academics related. If they aren't, they will be removed. This
-                rule also covers irrelevant posts.
+                academics related. If they aren&apos;t, they will be removed.
+                This rule also covers irrelevant posts.
               </li>
               <li className="text-white">
                 &#8226; Do not spam or promote anything here. Posts asking for
