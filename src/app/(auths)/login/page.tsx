@@ -110,7 +110,6 @@ export default function LoginPage() {
                 disabled={loading}
                 className="w-1/2 max-sm:w-1/2 max-sm:h-1/4 bg-indigo-600 text-white rounded-md p-2 hover:bg-indigo-700 transition duration-200"
               >
-                ''
                 {loading ? "Logging In.." : "Log In"}
               </button>
               <Link
