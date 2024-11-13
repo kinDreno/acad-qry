@@ -49,7 +49,7 @@ const Devs = () => {
     <>
       <main
         style={{
-          backgroundImage: "url(dev-sect.avif)",
+          backgroundImage: "url(giphy.webp)",
           filter: "blue(5px)",
         }}
         className="flex-col items-center justify-center w-full h-[50%] max-md:h-[60%] bg-black"

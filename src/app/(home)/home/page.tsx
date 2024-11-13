@@ -1,17 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { IoMdStarOutline } from "react-icons/io"; // unstarred
-import { MdOutlineStar } from "react-icons/md"; // full colored star
+import { IoMdStarOutline } from "react-icons/io";
+import { MdOutlineStar } from "react-icons/md";
 import { FaComment } from "react-icons/fa6";
 import { useState } from "react";
 
 const Page = () => {
-  // ALL POSTS ARE HERE AND NOT FILTERED. Will also add an infinite scroll feature with TanStack Query.
-  // I am still working on the UI Designs right now in this project and will soon deploy this for beta testing
-  // will work soon on database and querying!
-
   const [star, setStar] = useState<boolean>(false);
-  let char = 0;
+  const [char, setChar] = useState<number>(0);
+
+  const toggleStar = () => {
+    setStar((prevStar) => !prevStar);
+    setChar((prevChar) => (star ? prevChar - 1 : prevChar + 1));
+  };
+
   return (
     <>
       <main className="overflow-y-scroll h-full w-[80%] space-y-3 flex justify-center items-center">
@@ -26,13 +28,11 @@ const Page = () => {
               debitis laudantium maiores illo, ratione voluptate?
             </h6>
             <section className="space-x-4 flex items-center">
-              <Button onClick={() => setStar(!star)}>
-                {" "}
-                {!star ? <IoMdStarOutline /> : <MdOutlineStar />}{" "}
-                {star ? (char += 1) : (char = 0)} Charisma
+              <Button onClick={toggleStar}>
+                {!star ? <IoMdStarOutline /> : <MdOutlineStar />} {char}{" "}
+                Charisma
               </Button>
               <Button>
-                {" "}
                 <FaComment /> Comment
               </Button>
             </section>

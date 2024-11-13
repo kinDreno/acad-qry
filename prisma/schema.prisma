@@ -7,31 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Comment {
-  id        Int      @id @default(autoincrement())
-  text      String
-  userId    Int
-  createdAt DateTime @default(now())
-  postId    Int
-  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  User      User     @relation(fields: [userId], references: [id])
-
-  @@index([userId])
-}
-
-model Post {
-  id       Int       @id @default(autoincrement())
-  postedAt DateTime  @default(now())
-  title    String    @db.VarChar(40)
-  content  String
-  userId   Int
-  tag      String
-  Comment  Comment[]
-  User     User      @relation(fields: [userId], references: [id])
-
-  @@index([userId])
-}
-
 model User {
   id          Int       @id @default(autoincrement())
   uid         String    @unique
@@ -45,4 +20,29 @@ model User {
 
   @@index([email])
   @@index([uid])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  userId    String
+  createdAt DateTime @default(now())
+  postId    Int
+  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [uid])
+
+  @@index([userId])
+}
+
+model Post {
+  id       Int       @id @default(autoincrement())
+  postedAt DateTime  @default(now())
+  title    String    @db.VarChar(40)
+  content  String
+  userId   String
+  tag      String
+  Comment  Comment[]
+  User     User      @relation(fields: [userId], references: [uid])
+
+  @@index([userId])
 }

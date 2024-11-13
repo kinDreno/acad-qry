@@ -1,13 +1,17 @@
 "use client";
+import { ThreeDots } from "react-loader-spinner";
 import { useState } from "react";
 import { Post } from "@/types/here";
-import { IoMdAlert } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/utils";
-
+import Rules from "./rules";
+import Alert from "./alert";
 export default function App() {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [close, setClose] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
   const [writePost, setWritePost] = useState<Post>({
     title: "",
     content: "",
@@ -29,12 +33,26 @@ export default function App() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    if (!writePost.content || !writePost.tag || !writePost.title) {
+      setClose(true);
+      setMessage("All fields are required to fill up!");
+      return;
+    } else if (writePost.title.length > 40) {
+      setClose(true);
+      setMessage("Please limit the title to 40 Characters.");
+      return;
+    }
     try {
+      setLoading(true);
       const { data, error } = await supabase.auth.getUser();
+      setClose(true);
+      setMessage("Posting..");
+
       if (error) {
+        setMessage("An error has occured.");
         throw new Error("An error has occured");
       }
-      const userId = data?.user?.id ? parseInt(data.user.id, 10) : null;
+      const userId = data?.user?.id;
 
       if (!userId) {
         console.error("User is not authenticated.");
@@ -55,18 +73,25 @@ export default function App() {
 
       const result = await response.json();
       if (response.ok) {
-        console.log("Post created:", result);
+        setMessage("Post successfully created.");
       } else {
-        console.error("Error creating post:", result.message);
+        setMessage(`Error creating post: ${result.message}`);
       }
     } catch (error) {
-      console.error("Unexpected error:", error);
+      setMessage(`Unexpected error: ${error}`);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <>
-      <main className="flex max-h-[40%] w-full relative">
+      <main className="relative flex max-h-[40%] w-full">
+        <Alert
+          onClose={() => setClose(false)}
+          message={message}
+          hideDisplay={close}
+        />
         <div className="flex justify-center items-center text-center h-full w-full">
           <div className="grid w-full p-12 grid-cols-1 space-y-4">
             {/* Select Category of post */}
@@ -104,46 +129,24 @@ export default function App() {
                   name="content"
                   onChange={handleChangeValues}
                   value={writePost.content}
-                  className="max-w-[100%] border-2 text-left rounded-sm"
+                  className="max-w-[100%] resize-y border-2 text-left rounded-sm"
                 />
               </section>
-              <Button type="submit">Post</Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? (
+                  <>
+                    <ThreeDots color="black" />
+                    <span>Posting...</span>
+                  </>
+                ) : (
+                  "Post"
+                )}
+              </Button>
             </form>
           </div>
         </div>
         {/* Right Side-Bar */}
-        <nav className="h-full w-[40%] p-6">
-          <article className="h-full w-full border-2 p-4 rounded-lg bg-slate-950">
-            <ul className="space-y-5">
-              <li className="flex items-center space-x-2">
-                <IoMdAlert size={25} color="white" />
-                <h4 className="text-white">Rules on Posting</h4>
-              </li>
-              <li className="text-white">
-                &#8226; All posts, comments and discussions here must be
-                academics related. If they aren&apos;t, they will be removed.
-                This rule also covers irrelevant posts.
-              </li>
-              <li className="text-white">
-                &#8226; Do not spam or promote anything here. Posts asking for
-                something that is not connected with academics will be removed.
-              </li>
-              <li className="text-white">
-                &#8226; Follow appropriate etiquette. This includes being nice,
-                civil, and helpful to one another; disrespectful posts/comments
-                will be removed. Do not make sexist or racist remarks.
-              </li>
-              <li className="text-white">
-                &#8226; You are not allowed to use{" "}
-                <b>
-                  Racial slurs, inappropriate messages, or any messages that may
-                  offend people.
-                </b>{" "}
-                Doing so will result in a ban.
-              </li>
-            </ul>
-          </article>
-        </nav>
+        <Rules />
       </main>
     </>
   );
