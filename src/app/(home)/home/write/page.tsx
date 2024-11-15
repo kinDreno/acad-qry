@@ -67,7 +67,7 @@ export default function App() {
         },
         body: JSON.stringify({
           ...writePost,
-          userId,
+          userId: userId,
         }),
       });
 

@@ -30,17 +30,17 @@ export type Post = {
   title: string;
   content: string;
   tag: string;
-  postedAt?: Date;
-  userId?: string;
-  comments?: Comment[];
 };
 
 export interface MainContent extends Post {
-  charisma?: number;
+  User: string;
+  postedAt: Date;
+  collegeYear: string;
+  charisma: 0 | 1;
+  comments?: Comment[];
 }
 
 export type Comment = {
-  id: number;
   text: string;
   userId: string;
   postId: number;
@@ -48,8 +48,6 @@ export type Comment = {
 };
 
 export type User = {
-  id: number;
-  uid: string;
   firstName: string;
   lastName: string;
   course: string;
