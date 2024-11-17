@@ -11,7 +11,7 @@ export default function Page() {
   //
   const [error, setError] = useState<boolean>(false);
   const [descError, setDescError] = useState<string>("");
-  const [toggleView, setToggleView] = useState<boolean>(false);
+  const [toggleView, setToggleView] = useState<boolean>(true);
   const [formData, setFormData] = useState<SignIn>({
     email: "",
     password: "",
@@ -24,7 +24,7 @@ export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
 
@@ -39,7 +39,7 @@ export default function Page() {
     if (!data.email.includes("@") || !data.email.includes("@gmail.com")) {
       setError(true);
       setDescError(
-        "Email field requires '@' and '@gmail.com' to identify an email."
+        "Email field requires '@' and '@gmail.com' to identify an email.",
       );
       return null;
     } else if (data.password.length < 6) {

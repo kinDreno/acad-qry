@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/utils";
 import Rules from "./rules";
 import Alert from "./alert";
+
 export default function App() {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
@@ -42,21 +43,28 @@ export default function App() {
       setMessage("Please limit the title to 40 Characters.");
       return;
     }
+
     try {
       setLoading(true);
-      const { data, error } = await supabase.auth.getUser();
+      const { data: sessionData, error } = await supabase.auth.getSession();
       setClose(true);
-      setMessage("Posting..");
+      setMessage("Posting...");
 
-      if (error) {
-        setMessage("An error has occured.");
-        throw new Error("An error has occured");
+      if (error || !sessionData?.session || !sessionData.session.user) {
+        console.error("Supabase auth error:", error);
+        setMessage("An error has occurred, user not authenticated.");
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
+        return;
       }
-      const userId = data?.user?.id;
+
+      const userId = sessionData.session.user.id;
 
       if (!userId) {
         console.error("User is not authenticated.");
-        router.push("/");
+        setMessage("User not authenticated. Redirecting...");
+        setTimeout(() => router.push("/"), 2000);
         return;
       }
 
@@ -67,18 +75,21 @@ export default function App() {
         },
         body: JSON.stringify({
           ...writePost,
-          userId: userId,
+          userId,
         }),
       });
 
       const result = await response.json();
       if (response.ok) {
         setMessage("Post successfully created.");
+        setWritePost({ title: "", content: "", tag: "" });
       } else {
-        setMessage(`Error creating post: ${result.message}`);
+        setMessage(
+          `Error creating post: ${result.message || response.statusText}`
+        );
       }
-    } catch (error) {
-      setMessage(`Unexpected error: ${error}`);
+    } catch (error: any) {
+      setMessage(`Unexpected error: ${error.message || error}`);
     } finally {
       setLoading(false);
     }
@@ -94,7 +105,6 @@ export default function App() {
         />
         <div className="flex justify-center items-center text-center h-full w-full">
           <div className="grid w-full p-12 grid-cols-1 space-y-4">
-            {/* Select Category of post */}
             <h4 className="font-bold">
               Create Post | Read the rules before your post.
             </h4>
@@ -104,6 +114,7 @@ export default function App() {
                 <select
                   name="tag"
                   onChange={handleChangeValues}
+                  value={writePost.tag}
                   className="p-2 border-2 border-slate-800 border-opacity-40 rounded-sm"
                 >
                   <option value="">Add a Tag</option>
@@ -117,14 +128,15 @@ export default function App() {
                 <input
                   value={writePost.title}
                   onChange={handleChangeValues}
-                  type="title"
+                  type="text"
                   name="title"
+                  maxLength={40}
                   className="max-w-[100%] border-2 text-left rounded-sm"
                 />
               </section>
               <br />
               <section>
-                <label htmlFor="content">Content: </label>
+                <label htmlFor="content">Content:</label>
                 <textarea
                   name="content"
                   onChange={handleChangeValues}
