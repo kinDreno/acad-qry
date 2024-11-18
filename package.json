@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.9.1",
     "@nextui-org/card": "^2.0.34",
     "@nextui-org/input": "^2.2.5",
     "@nextui-org/skeleton": "^2.0.32",
