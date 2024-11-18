@@ -3587,7 +3587,7 @@ snapshots:
       '@internationalized/number': 3.5.4
       '@internationalized/string': 3.2.4
       '@react-aria/ssr': 3.9.6(react@18.2.0)
-      '@react-aria/utils': 3.24.1(react@18.2.0)
+      '@react-aria/utils': 3.25.3(react@18.2.0)
       '@react-types/shared': 3.25.0(react@18.2.0)
       '@swc/helpers': 0.5.15
       react: 18.2.0
@@ -3621,7 +3621,7 @@ snapshots:
       '@react-aria/i18n': 3.11.1(react@18.2.0)
       '@react-aria/interactions': 3.22.4(react@18.2.0)
       '@react-aria/ssr': 3.9.6(react@18.2.0)
-      '@react-aria/utils': 3.24.1(react@18.2.0)
+      '@react-aria/utils': 3.25.3(react@18.2.0)
       '@react-aria/visually-hidden': 3.8.17(react@18.2.0)
       '@react-stately/overlays': 3.6.11(react@18.2.0)
       '@react-types/button': 3.10.0(react@18.2.0)
