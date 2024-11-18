@@ -12,6 +12,8 @@
     "@nextui-org/card": "^2.0.34",
     "@nextui-org/input": "^2.2.5",
     "@nextui-org/skeleton": "^2.0.32",
+    "@nextui-org/system": "^2.2.6",
+    "@nextui-org/theme": "^2.2.11",
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.2",
