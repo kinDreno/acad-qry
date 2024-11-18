@@ -46,36 +46,27 @@ export default function App() {
 
     try {
       setLoading(true);
-      const { data: sessionData, error } = await supabase.auth.getSession();
+
+      const { data: session } = await supabase.auth.getSession();
+      const token = session?.session?.access_token;
+
+      if (!token) {
+        setMessage("User not authenticated. Please log in.");
+        setClose(true);
+        return;
+      }
       setClose(true);
       setMessage("Posting...");
 
-      if (error || !sessionData?.session || !sessionData.session.user) {
-        console.error("Supabase auth error:", error);
-        setMessage("An error has occurred, user not authenticated.");
-        setTimeout(() => {
-          router.push("/");
-        }, 2000);
-        return;
-      }
-
-      const userId = sessionData.session.user.id;
-
-      if (!userId) {
-        console.error("User is not authenticated.");
-        setMessage("User not authenticated. Redirecting...");
-        setTimeout(() => router.push("/"), 2000);
-        return;
-      }
-
+      // Send the token in the Authorization header
       const response = await fetch("/api/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           ...writePost,
-          userId,
         }),
       });
 
@@ -84,6 +75,7 @@ export default function App() {
         setMessage("Post successfully created.");
         setWritePost({ title: "", content: "", tag: "" });
       } else {
+        console.error(result.message);
         setMessage(
           `Error creating post: ${result.message || response.statusText}`
         );
