@@ -31,7 +31,7 @@ export async function login(formData: FormData) {
       };
     }
 
-    return { status: "Login successful!", success: true };
+    return { status: "Login successful! Redirecting you in 4 seconds..", success: true };
   } catch (error) {
     console.error("Login Error:", error);
     return {

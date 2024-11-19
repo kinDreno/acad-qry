@@ -41,8 +41,8 @@ export default function LoginPage() {
       if (!result.success) {
         setError(result.status);
       } else {
-        setError("");
-        router.push("/home");
+        setError(result.status);
+        setTimeout(() => router.push("/home"), 4000);
       }
     } catch (e) {
       console.error(e);

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
-import MainSkeleton from "@/components/skeleton";
+import { SkeletonDemo } from "@/app/(home)/home/skeleton";
 
 export const metadata: Metadata = {
   title: "TonAcads Query | New?",
@@ -11,7 +11,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <main className="h-screen w-full flex justify-center items-center">
-        <Suspense fallback={<MainSkeleton />}>{children}</Suspense>
+        <Suspense fallback={<SkeletonDemo />}>{children}</Suspense>
       </main>
     </>
   );

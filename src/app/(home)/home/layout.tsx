@@ -1,21 +1,38 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 import NavHome from "@/components/nav.home";
-import { Metadata } from "next";
-import SidebarHome from "@/components/sidebar-home";
-import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
 import MobileHomeNav from "@/components/mobile-home-nav";
+import SidebarHome from "@/components/sidebar-home";
+import { SkeletonDemo } from "./skeleton";
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+  const supabase = createClient();
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
-export const metadata: Metadata = {
-  title: "TonAcads Query | Main",
-  description: "HELOW",
-};
-const Layout = async ({ children }: { children: React.ReactNode }) => {
-  const supabase = await createClient();
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data.user) {
+        router.push("/");
+      } else {
+        setLoading(false);
+      }
+    };
 
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
-    redirect("/login");
+    fetchUser();
+  }, [supabase, router]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen w-full">
+        <SkeletonDemo />
+      </div>
+    );
   }
+
   return (
     <>
       <NavHome />
@@ -28,4 +45,4 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Layout;
+export default AuthLayout;

@@ -43,7 +43,9 @@ const SidebarHome = () => {
             />
             <div className="text-left ">
               <h5 className="font-bold">Literally Me</h5>
-              <h6 className="text-sm opacity-60">@email {/*user's email*/}</h6>
+              <h6 className="text-sm opacity-60">
+                example@gmail.com{/*user's email*/}
+              </h6>
             </div>
           </div>
           {/* pfft UI here! */}

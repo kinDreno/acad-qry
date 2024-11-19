@@ -9,7 +9,17 @@ import { format } from "date-fns";
 const Page = () => {
   const [star, setStar] = useState<boolean>(false);
   const [char, setChar] = useState<number>(0);
-  const [datas, setDatas] = useState<MainContent[]>([]);
+  const [datas, setDatas] = useState<MainContent[]>([
+    {
+      User: "John Doe",
+      postedAt: new Date(),
+      collegeYear: "3rd Year",
+      title: "Understanding React Hooks",
+      content: "React hooks are a game changer in modern React development...",
+      charisma: 0,
+      tag: "None",
+    },
+  ]);
 
   const toggleStar = () => {
     setStar((prevStar) => {
