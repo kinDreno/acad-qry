@@ -1,15 +1,15 @@
 import NavHome from "@/components/nav.home";
 import SidebarHome from "@/components/sidebar-home";
 import MobileHomeNav from "@/components/mobile-home-nav";
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 const Layout = async ({ children }: { children: React.ReactNode }) => {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
-    return redirect("/");
-  }
 
+  if (error || !data?.user) {
+    redirect("/login");
+  }
   return (
     <>
       <NavHome />
