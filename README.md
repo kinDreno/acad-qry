@@ -10,7 +10,7 @@
 
 ###
 
-<h5 align="left">I contemplating if this project must be only specifically focused for my school.
+<h5 align="left">I am thinking if this project must be only specifically focused for my school.
 will update this one in the future if I still have the motivation to keep going further to implement this project.</h5>
 
 ###
