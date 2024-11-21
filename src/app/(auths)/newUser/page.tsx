@@ -20,11 +20,10 @@ export default function Page() {
     course: "",
     collegeYear: "",
   });
-
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
 
@@ -39,7 +38,7 @@ export default function Page() {
     if (!data.email.includes("@") || !data.email.includes("@gmail.com")) {
       setError(true);
       setDescError(
-        "Email field requires '@' and '@gmail.com' to identify an email.",
+        "Email field requires '@' and '@gmail.com' to identify an email."
       );
       return null;
     } else if (data.password.length < 6) {
@@ -95,8 +94,6 @@ export default function Page() {
       setIsSubmitting(false);
     }
   };
-
-  console.log(formData);
 
   return (
     <div

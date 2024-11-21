@@ -2,12 +2,12 @@ import Image from "next/image";
 import AlertDia from "./alert";
 import { Button } from "./ui/button";
 
-const SidebarHome = () => {
+const SidebarHome = ({ emailUser }: { emailUser: string | null }) => {
   return (
     <>
       <div
         id="sidebar"
-        className="border-r-2 border-r-slate-800 w-[20vw] max-md:hidden h-[85vh] overflow-y-scroll"
+        className="border-r-2 border-r-slate-800 w-[20vw] max-md:hidden h-[85vh]"
       >
         <section className="h-[85%] w-full">
           <div className="flex space-y-5 justify-around items-center ">
@@ -44,7 +44,8 @@ const SidebarHome = () => {
             <div className="text-left ">
               <h5 className="font-bold">Literally Me</h5>
               <h6 className="text-sm opacity-60">
-                example@gmail.com{/*user's email*/}
+                {emailUser}
+                {/*user's email*/}
               </h6>
             </div>
           </div>

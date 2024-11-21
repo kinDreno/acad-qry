@@ -10,12 +10,14 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   if (error || !data?.user) {
     redirect("/login");
   }
+  console.log(data);
+
   return (
     <>
       <NavHome />
       <MobileHomeNav />
       <section className="flex w-screen h-full">
-        <SidebarHome />
+        <SidebarHome emailUser={data.user.email || null} />
         {children}
       </section>
     </>
