@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Rules from "./rules";
 import Alert from "./alert";
-import { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/utils";
 
 export default function App() {
