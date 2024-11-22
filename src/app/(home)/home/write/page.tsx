@@ -1,13 +1,13 @@
 "use client";
 import { ThreeDots } from "react-loader-spinner";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Post } from "@/types/here";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/utils";
 import Rules from "./rules";
 import Alert from "./alert";
 import { Session } from "@supabase/supabase-js";
+import { supabase } from "@/lib/utils";
 
 export default function App() {
   const router = useRouter();
@@ -19,32 +19,6 @@ export default function App() {
     content: "",
     tag: "",
   });
-  const [session, setSession] = useState<Session | null>(null);
-
-  useEffect(() => {
-    const fetchSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error("Error fetching session:", error.message);
-        return;
-      }
-      console.log(data?.session?.access_token); //prints out the token but never do this in development..
-      setSession(data?.session); //////////////////////// this is just for testing and demos..
-    };
-
-    fetchSession();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_, session) => {
-        console.log(session?.access_token);
-        setSession(session);
-      }
-    );
-
-    return () => {
-      authListener?.subscription.unsubscribe();
-    };
-  }, []);
 
   function handleChangeValues(
     e: React.ChangeEvent<
@@ -71,20 +45,19 @@ export default function App() {
       return;
     }
 
+    const { data: data, error } = await supabase.auth.getUser();
     try {
       setLoading(true);
-      if (!session?.user) {
+      if (!data?.user) {
         setClose(true);
         setMessage("User not authenticated, please log in.");
         return;
       }
 
-      const token = session.access_token;
       const response = await fetch("/api/posts/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           ...writePost,

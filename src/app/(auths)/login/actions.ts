@@ -1,5 +1,4 @@
-"use server"
-import { cookies } from 'next/headers'; // Import the cookies utility
+"use server";
 import { createClient } from "@/utils/supabase/server"; // Supabase client setup
 
 export async function login(formData: FormData) {
@@ -20,19 +19,9 @@ export async function login(formData: FormData) {
       };
     }
 
-    // Store session in cookies
-    const cookiesInstance = await cookies(); // Access cookies on the server
-    cookiesInstance.set('supabase_session', JSON.stringify(data.session), {
-      httpOnly: true, // Secure the cookie by making it httpOnly
-      path: '/', // Cookie available across the entire site
-      maxAge: 60 * 60 * 24 * 7, // Expires in 7 days
-    });
-
     return {
-      status: "Login successful! Redirecting you in 4 seconds..",
+      status: "Login successful! Redirecting you in 3 seconds..",
       success: true,
-      user: data.user,
-      session: data.session,
     };
   } catch (error) {
     console.error(error);

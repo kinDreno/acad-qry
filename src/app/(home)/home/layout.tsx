@@ -10,7 +10,6 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   if (error || !data?.user) {
     redirect("/login");
   }
-  console.log(data);
 
   return (
     <>
