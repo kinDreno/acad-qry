@@ -3,13 +3,10 @@ import { ThreeDots } from "react-loader-spinner";
 import { useState } from "react";
 import { Post } from "@/types/here";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import Rules from "./rules";
 import Alert from "./alert";
-import { supabase } from "@/lib/utils";
 
-export default function App() {
-  const router = useRouter();
+export default function Write() {
   const [loading, setLoading] = useState<boolean>(false);
   const [close, setClose] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -43,16 +40,16 @@ export default function App() {
       setMessage("Please limit the title to 40 Characters.");
       return;
     }
-
-    const { data: data, error } = await supabase.auth.getUser();
+    // const supabase = await createClient();
+    // const { data: data, error } = await supabase.auth.getUser();
     try {
       setLoading(true);
-      if (!data?.user || error) {
-        setClose(true);
-        setMessage("User not authenticated, please log in.");
-        return;
-      }
-
+      // if (!data?.user || error) {
+      //   setClose(true);
+      //   setMessage("User not authenticated, please log in.");
+      //   return;
+      // }
+      // deleted logic. I handled it instead in the server side.
       const response = await fetch("/api/posts/", {
         method: "POST",
         headers: {
