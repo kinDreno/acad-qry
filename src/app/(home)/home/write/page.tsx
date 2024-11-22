@@ -48,7 +48,7 @@ export default function App() {
     const { data: data, error } = await supabase.auth.getUser();
     try {
       setLoading(true);
-      if (!data?.user) {
+      if (!data?.user || error) {
         setClose(true);
         setMessage("User not authenticated, please log in.");
         return;
