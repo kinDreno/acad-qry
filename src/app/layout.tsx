@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-providers";
+import { QueryWrapper } from "./tanstackWrapper";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -15,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "TonAcads Query | Welcome",
+  title: "Akademiko RIA | Welcome",
   description: "HELOW",
 };
 
@@ -35,7 +36,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <QueryWrapper>{children}</QueryWrapper>
         </ThemeProvider>
       </body>
     </html>

@@ -21,7 +21,7 @@ const Alert = ({
         }  flex justify-center items-center transition-all duration-1000`}
       >
         <div className="bg-white w-64 h-32 p-4 rounded-md shadow-md ">
-          <h5 className="dark:text-black "> {message}</h5>
+          <h5 className="dark:text-black ">{message}</h5>
           <hr />
           <br />
           <p className="dark:text-black">Tap anywhere to close.</p>

@@ -113,7 +113,7 @@ export default function LoginPage() {
                 {loading ? "Logging In.." : "Log In"}
               </button>
               <Link
-                href={"/newUser"}
+                href={"/signup"}
                 className="w-1/2 max-sm:mt-2 max-sm:w-1/2 max-sm:h-1/4 bg-gray-300 text-center text-black rounded-md p-2 hover:bg-gray-400 transition duration-200"
               >
                 Register

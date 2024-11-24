@@ -1,0 +1,6 @@
+{
+    "watch": ["src/scripts"],
+    "ext": "ts,json",
+    "exec": "ts-node src/scripts/updateSchema.ts"
+  }
+  

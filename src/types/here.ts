@@ -27,17 +27,18 @@ export type SignIn = {
   collegeYear: string;
 };
 export type Post = {
+  slug: string;
   title: string;
   content: string;
   tag: string;
 };
 
 export interface MainContent extends Post {
-  User: string;
+  user: User;
   postedAt: Date;
   collegeYear: string;
-  charisma: 0 | 1;
-  comments?: Comment[];
+  charisma: number;
+  comments: Comment[];
 }
 
 export type Comment = {
@@ -45,6 +46,7 @@ export type Comment = {
   userId: string;
   postId: number;
   createdAt: Date;
+  commentedBy: string;
 };
 
 export type User = {
@@ -52,7 +54,6 @@ export type User = {
   lastName: string;
   course: string;
   collegeYear: string;
-  email: string;
   posts: Post[];
   comments: Comment[];
 };

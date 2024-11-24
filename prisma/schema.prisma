@@ -37,12 +37,14 @@ model Comment {
 model Post {
   id       Int       @id @default(autoincrement())
   postedAt DateTime  @default(now())
-  title    String    @db.VarChar(40)
+  title    String    @db.VarChar(200)
   content  String
   userId   String
   tag      String
+  charisma Int       @default(0)
   Comment  Comment[]
   User     User      @relation(fields: [userId], references: [uid])
+  slug     String    @unique
 
   @@index([userId])
 }
