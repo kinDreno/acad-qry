@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-providers";
-import { QueryWrapper } from "./tanstackWrapper";
 import "./globals.css";
-
+import { QueryProviders } from "./queryProviders";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -36,7 +35,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <QueryWrapper>{children}</QueryWrapper>
+          <QueryProviders>{children}</QueryProviders>
         </ThemeProvider>
       </body>
     </html>

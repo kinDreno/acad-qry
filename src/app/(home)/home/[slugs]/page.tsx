@@ -2,4 +2,4 @@ export const Page = ({ params }: { params: { slug: string } }) => {
   return <></>;
 };
 
-// will set this up!
+// will set this up soon!

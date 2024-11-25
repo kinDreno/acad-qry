@@ -7,19 +7,28 @@ import { useQuery } from "@tanstack/react-query";
 import { MainContent } from "@/types/here";
 import { format } from "date-fns";
 import Link from "next/link";
-import { fetchPosts } from "@/utils/querying/api";
-
+import { fetchPosts } from "@/utils/querying/posts";
+import { SkeletonDemo } from "./skeleton";
 const Page = () => {
+  //
   const { data, error, isLoading } = useQuery<MainContent[], Error>({
-    queryKey: ["posts"], // Define the query key
-    queryFn: fetchPosts, // Define the fetch function to get the data
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
   });
-  if (isLoading) return <p>Loading...</p>;
-  if (error instanceof Error) return <p>{error.message}</p>;
+
+  if (isLoading)
+    return (
+      <section className="h-screen w-full">
+        <SkeletonDemo />
+      </section>
+    );
+
+  if (error instanceof Error)
+    return <p>{error.message}.. Trying to refetch it...</p>;
 
   return (
     <>
-      <main className="overflow-y-scroll h-full w-[80%] space-y-3 flex justify-center items-center">
+      <main className="overflow-y-scroll h-full w-[80%] space-y-3 flex-col justify-center items-center">
         {data?.map((post, index) => {
           const formattedDate = format(
             new Date(post.postedAt),
@@ -32,14 +41,14 @@ const Page = () => {
               className="h-full w-[70%] border-b-2 p-6 space-y-4"
             >
               <div>
-                {post.user.firstName} {post.user.lastName} &#8226;{" "}
-                {formattedDate} &#8226; {post.collegeYear} &#8226; {post.tag}
+                {post.User.firstName} {post.User.lastName} &#8226;{" "}
+                {formattedDate} {post.collegeYear} &#8226; {post.tag}
               </div>
               <section className="h-full w-full text-left space-y-3">
                 <h4 className="font-bold">{post.title}</h4>
                 <h6>{post.content}</h6>
                 <section className="space-x-4 flex items-center">
-                  <Button>
+                  <Button className="flex">
                     {post.charisma ? <IoMdStarOutline /> : <MdOutlineStar />}{" "}
                     {post.charisma || 0} Charisma
                   </Button>

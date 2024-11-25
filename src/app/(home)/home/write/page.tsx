@@ -40,8 +40,7 @@ export default function Write() {
       setMessage("Please limit the title to 40 Characters.");
       return;
     }
-    // const supabase = await createClient();
-    // const { data: data, error } = await supabase.auth.getUser();
+
     try {
       setLoading(true);
       // if (!data?.user || error) {
