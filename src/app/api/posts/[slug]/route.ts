@@ -2,14 +2,14 @@
 import { prisma } from "@/utils/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(
-  req: Request,
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
+type Sluggy = Promise<{
+  slug: string;
+}>;
+export async function GET(request: Request, { params }: { params: Sluggy }) {
+  const { slug } = await params;
 
   if (!slug) {
-    return NextResponse.json({ error: "Slug is required!" }, { status: 500 });
+    return NextResponse.json({ error: "Slug is required!" }, { status: 400 });
   }
   try {
     const slugPost = await prisma.post.findUnique({

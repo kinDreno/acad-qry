@@ -1,57 +1,45 @@
 "use client";
-import { ReactNode, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { fetchPostBySlug } from "@/utils/querying/fetchPost";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPostBySlug } from "@/utils/querying/posts";
 import { MainContent } from "@/types/here";
 import { format } from "date-fns";
+
 const PostPage = () => {
   const { slug } = useParams();
-  const [post, setPost] = useState<MainContent | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (slug) {
-      const fetchPost = async () => {
-        try {
-          const response = await fetchPostBySlug(slug as string);
-          setPost(response);
-        } catch (err) {
-          setError("Failed to load the post");
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      fetchPost();
-    }
-  }, [slug]);
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useQuery<MainContent>({
+    queryKey: ["post", slug],
+    queryFn: () => fetchPostBySlug(slug as string),
+    enabled: !!slug, //ensures it only runs when its availb
+  });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <div>{(error as Error).message || "Failed to load the post"}</div>;
   }
 
   if (!post) {
-    return <p>Post not found</p>;
+    return <div>Post not found</div>;
   }
-  const formattedDate: ReactNode = format(
-    new Date(post.postedAt),
-    "MMMM dd, yyyy"
-  );
-  console.log(post);
+
+  const formattedDate = format(new Date(post.postedAt), "MMMM dd, yyyy");
 
   return (
     <div>
-      <h4>{post.User.firstName}</h4>
-      <h5>{post.User.lastName}</h5>
-      <h4>{formattedDate}</h4>
+      <div>
+        {post.User.firstName} {post.User.lastName}
+      </div>
+      <div>{formattedDate}</div>
       <h1>{post.title}</h1>
       <p>{post.content}</p>
-      {/* Add other post details as needed */}
     </div>
   );
 };
