@@ -5,7 +5,7 @@
   "scripts": {
     "devStart": "nodemon --exec ts-node -r tsconfig-paths/register src/scripts/updateSchema.ts",
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build":  "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
