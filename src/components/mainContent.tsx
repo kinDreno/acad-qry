@@ -60,15 +60,12 @@ const MainContent = () => {
               What is <b>Akademiko RIA&#63;</b>
               <hr />
             </h4>
-            <article className="w-full max-sm:h-[21em] border-b-2 h-40 rounded-md text-left p-2">
-              <p>
+            <article className="w-full max-sm:main-h-[6em] border-b-2 h-30 rounded-md text-left p-2">
+              <p className="max-sm:text-md">
                 &#8226; <b>Akademiko RIA</b> is a comprehensive web application
                 designed to foster a supportive community where students can
                 connect with their peers or knowledgeable individuals to seek
-                assistance. Whether it's academic challenges, project guidance,
-                or general inquiries, the platform provides a collaborative
-                environment that encourages knowledge-sharing and mutual
-                support.
+                assistance.
               </p>
             </article>
             <h5 className="mt-4 text-lg max-sm:text-md">
