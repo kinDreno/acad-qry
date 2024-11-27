@@ -1,10 +1,10 @@
-import { IoMdMenu } from "react-icons/io";
+import { IoMenu } from "react-icons/io5";
 
 const MobileNav = ({ state }: { state: () => void }) => {
   return (
     <section className="hidden max-md:block">
-      <button onClick={state} className="text-white">
-        <IoMdMenu size={30} />
+      <button onClick={state}>
+        <IoMenu size={30} />
       </button>
     </section>
   );

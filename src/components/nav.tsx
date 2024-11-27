@@ -3,7 +3,6 @@ import { PiHandshakeFill } from "react-icons/pi";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import Headroom from "react-headroom";
-import { FaGithub } from "react-icons/fa";
 import { ModeToggle } from "./mode-toggle";
 import MobileNav from "./mobile-nav";
 
@@ -39,10 +38,6 @@ const Nav: React.FC = () => {
               <h3 className="ml-2 text-lg  font-bold">AcadQry!</h3>
             </Link>{" "}
             <h4 style={{ fontSize: "20px" }}>|</h4>
-            <Link href={"https://github.com/kinDreno/acad-qry"}>
-              <FaGithub size={30} />
-            </Link>
-            <h4 className="text-[20px] max-md:block hidden">|</h4>
             <div className="max-md:block hidden">
               <ModeToggle />
             </div>

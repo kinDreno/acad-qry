@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { DeveloperTypes } from "@/types/here";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { format } from "date-fns";
 const Devs = () => {
   const profiles: DeveloperTypes[] = [
     {
@@ -44,7 +45,8 @@ const Devs = () => {
       ],
     },
   ];
-
+  const dateTod = new Date();
+  const formattedDate = format(new Date(dateTod), "yyyy");
   return (
     <>
       <main
@@ -52,6 +54,7 @@ const Devs = () => {
           backgroundImage: "url(giphy.webp)",
           filter: "blue(5px)",
         }}
+        id="developers"
         className="flex-col items-center justify-center w-full h-[50%] max-md:h-[60%] bg-black"
       >
         <h1
@@ -100,6 +103,9 @@ const Devs = () => {
             ))}
           </section>
         </main>
+        <h4 className="text-center p-3 font-bold text-lg">
+          akademiko &#8226; {formattedDate}
+        </h4>
       </main>
     </>
   );

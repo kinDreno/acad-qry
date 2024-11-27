@@ -4,6 +4,10 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ], safelist: [
+    "from-slate-100", "from-slate-200", "from-slate-300", "from-slate-400", 
+    "via-blue-200", "via-blue-300", "via-blue-400", "via-blue-500", "via-blue-600", "via-blue-700",
+    "to-indigo-300", "to-indigo-400", "to-indigo-500", "to-indigo-600", "to-indigo-700", "to-indigo-800", "to-indigo-900"
   ],
   theme: {
   	extend: {
@@ -63,6 +67,28 @@ module.exports = {
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
   			}
+  		},
+  		keyframes: {
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
   },
