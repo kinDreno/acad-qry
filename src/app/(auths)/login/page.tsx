@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { login } from "./actions";
 import Nav from "@/components/nav";
 import Image from "next/image";
@@ -11,7 +11,9 @@ export default function LoginPage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>(
+    "It is a must to fillup all fields!"
+  );
 
   //
   // handle loginsszzz
@@ -54,10 +56,17 @@ export default function LoginPage() {
   }
 
   return (
-    <>
-      <Nav />
-      <main className="flex justify-center h-screen p-[12em] max-sm:p-[6em] bg-gradient-to-tl from-black from-15% via-slate-700 via-40% to-slate-400 to-65%">
-        <article className="h-full w-[40%] max-sm:border-none max-sm: max-xl:w-[80%] max-md:w-[100vh] border-x-2 rounded-lg border-slate-800">
+    <Fragment>
+      <main
+        style={{
+          backgroundImage: "url('stacked-waves-haikei.svg')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="flex justify-center items-center h-screen p-[12em] max-sm:p-[2em]"
+      >
+        <article className="h-full w-[40%] max-sm:border-none max-xl:w-[80%] max-md:w-[100vw] border-x-2 rounded-lg border-slate-800">
           <form // form????
             className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
             onSubmit={handleLogin}
@@ -137,6 +146,6 @@ export default function LoginPage() {
           </h5>
         </article>
       </main>
-    </>
+    </Fragment>
   );
 }

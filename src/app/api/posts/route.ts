@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/utils/prisma";
 import { createClient } from "@/utils/supabase/server";
 import slugify from "slugify";
-
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const requestUrl = req.url;
@@ -16,14 +15,13 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error || !data?.user || !data.user.id) {
+    return NextResponse.redirect(new URL("/", req.url), 302);
+  }
   try {
-    const supabase = await createClient();
-    const { data, error } = await supabase.auth.getUser();
-
-    if (error || !data?.user || !data.user.id) {
-      return NextResponse.redirect(new URL("/", req.url), 302);
-    }
-
     let slug: string = slugify(title, {
       lower: true,
       strict: true,
@@ -77,13 +75,7 @@ export const GET = async () => {
       },
     });
 
-    const postFiltered = posts.map((post) => ({
-      ...post,
-      commentCount: post.Comment.length,
-      Comment: undefined,
-    }));
-
-    return NextResponse.json(postFiltered, { status: 200 });
+    return NextResponse.json(posts, { status: 200 });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ message: "An error occured." }, { status: 500 });

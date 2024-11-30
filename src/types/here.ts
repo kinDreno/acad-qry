@@ -33,20 +33,20 @@ export type Post = {
 };
 
 export interface MainContent extends Post {
+  userId: string;
+  id: number;
   User: User;
   postedAt: Date;
   collegeYear: string;
   charisma: number;
-  comments: Comment[];
+  Comment: Comment[];
   slug: string;
 }
 
 export type Comment = {
   text: string;
-  userId: string;
-  postId: number;
   createdAt: Date;
-  commentedBy: string;
+  User: User;
 };
 
 export type User = {

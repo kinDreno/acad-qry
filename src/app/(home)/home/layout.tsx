@@ -5,20 +5,17 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const supabase = await createClient();
-  const { data: data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
-    redirect("/login");
+  const { data: userData, error } = await supabase.auth.getUser();
+  if (error || !userData) {
+    redirect("/");
   }
 
   return (
     <>
       <NavHome />
       <MobileHomeNav />
-      <section className="flex w-screen h-full">
-        <SidebarHome emailUser={data.user.email || null} />
-        {children}
-      </section>
+      <SidebarHome emailUser={userData.user?.email || null} />
+      {children}
     </>
   );
 };

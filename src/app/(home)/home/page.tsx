@@ -13,7 +13,7 @@ const Page = () => {
   //
   const { data, error, isLoading } = useQuery<MainContent[], Error>({
     queryKey: ["posts"],
-    queryFn: fetchPosts,
+    queryFn: () => fetchPosts(),
   });
 
   if (isLoading)
@@ -28,34 +28,36 @@ const Page = () => {
 
   return (
     <>
-      <main className="overflow-y-scroll h-full w-[80%] space-y-3 flex-col justify-center items-center">
+      <main className="max-w-screen-sm mt-[9em] w-full h-full mx-auto space-y-3 flex-col justify-center items-center">
         {data?.map((post, index) => {
           const formattedDate = format(
             new Date(post.postedAt),
             "MMMM dd, yyyy"
           );
-
           return (
             <article
               key={index}
-              className="h-full w-[70%] border-b-2 p-6 space-y-4"
+              className="h-[20%] w-full md:w-3/4 lg:w-2/3 border-b-2 p-6 space-y-4"
             >
-              <div>
+              <div className="text-sm text-gray-500">
                 {post.User.firstName} {post.User.lastName} &#8226;{" "}
                 {formattedDate} {post.collegeYear} &#8226; {post.tag}
               </div>
-              <section className="h-full w-full text-left space-y-3">
-                <h4 className="font-bold">{post.title}</h4>
-                <h6>{post.content}</h6>
+              <section className="text-left space-y-3">
+                <h4 className="font-bold text-lg">{post.title}</h4>
+                <h6 className="leading-relaxed">{post.content}</h6>
                 <section className="space-x-4 flex items-center">
-                  <Button className="flex">
+                  <Button className="flex hover:bg-gray-200 transition-colors">
                     {post.charisma ? <IoMdStarOutline /> : <MdOutlineStar />}{" "}
                     {post.charisma || 0} Charisma
                   </Button>
-                  <Link href={`home/${post.slug}`}>
-                    <FaComment /> Comment
+                  <Link
+                    href={`home/${post.slug}`}
+                    className="flex items-center space-x-2 hover:text-blue-500"
+                  >
+                    <FaComment /> <span>Comment</span>
                   </Link>
-                  <h5>{post.comments?.length || 0} Comments</h5>
+                  <h5>{post.Comment?.length || 0} Comments</h5>
                 </section>
               </section>
             </article>

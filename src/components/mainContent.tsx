@@ -22,7 +22,7 @@ const MainContent = () => {
     }
 
     return () => {
-      if (el) observer.unobserve(el);
+      if (el) observer.disconnect();
     };
   }, []);
 
@@ -32,28 +32,28 @@ const MainContent = () => {
       id="about"
       className={`transition-all duration-400 ease-in ${
         inView ? "opacity-100" : "opacity-0"
-      } h-[100vh] max-lg:h-[200vh] w-full flex justify-center items-center p-4 md:p-16`}
+      } min-h-[100vh] max-lg:min-h-[140vh] w-full flex justify-center items-center p-4 md:p-16`}
     >
-      <main className="flex flex-col lg:flex-row p-6 gap-4 backdrop-blur-md rounded-lg h-full w-full border-2">
+      <main className="flex flex-col lg:flex-row p-6 gap-4 backdrop-blur-md rounded-lg max-sm:min-h-[150vh] max-lg:h-[120vh] h-full w-full border-2">
         <article
           id="header"
-          className="flex flex-col justify-center items-center lg:w-[50%] w-full h-full"
+          className="flex flex-col justify-center items-center  w-full h-full"
         >
-          <div className="flex flex-col space-y-20 justify-center  items-center w-full max-sm:h-[50%] min-h-[70%] lg:h-auto">
+          <div className="flex flex-col space-y-20 justify-center items-center w-full max-sm:min-h-[20%] min-h-[70%] lg:h-auto">
             <Image
               src={"/faq.svg"}
               alt="Illustration of people having a work discussion"
               width={500}
               height={760}
               className="object-contain max-lg:h-[14em]"
-              priority
+              loading="lazy"
             />
             <h3 className="font-bold text-center text-3xl">FAQ</h3>
           </div>
         </article>
         <article
           id="accordion"
-          className="lg:w-[50%] w-full p-6 lg:border-2 h-full rounded-lg flex flex-col"
+          className="w-full p-6 lg:border-2 max-lg:min-h-full min-h-full rounded-lg flex flex-col"
         >
           <section id="whatIs?">
             <h4>

@@ -1,12 +1,13 @@
 "use server";
 
 import { prisma } from "@/utils/prisma";
-import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
+import { NextResponse, type NextRequest } from "next/server";
 
-type Sluggy = Promise<{
-  slug: string;
-}>;
-export async function GET(request: Request, { params }: { params: Sluggy }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   const { slug } = await params;
 
   if (!slug) {
@@ -23,6 +24,13 @@ export async function GET(request: Request, { params }: { params: Sluggy }) {
             course: true,
           },
         },
+        Comment: {
+          select: {
+            createdAt: true,
+            text: true,
+            User: true,
+          },
+        },
       },
     });
 
@@ -36,5 +44,31 @@ export async function GET(request: Request, { params }: { params: Sluggy }) {
       { error: `An error has occured` },
       { status: 500 }
     );
+  }
+}
+
+export async function POST(req: Request) {
+  const { id, userId, text, slug } = await req.json();
+
+  if (!id || !userId || !text) {
+    return NextResponse.json(
+      { message: "Missing required fields." },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const newComment = await prisma.comment.create({
+      data: {
+        text: text,
+        postId: id,
+        userId: userId,
+      },
+    });
+    revalidatePath(`/home/${slug}`);
+    return NextResponse.json(newComment, { status: 201 });
+  } catch (e: any) {
+    console.error(`$An error has occured: ${e.message}`);
+    return NextResponse.json({ message: `An error has occured: ${e.message}` });
   }
 }

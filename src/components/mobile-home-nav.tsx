@@ -14,7 +14,7 @@ const MobileHomeNav = () => {
     <>
       {view && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+          className="backdrop-blur-md fixed top-0 inset-0 bg-black/50 z-40 transition-opacity duration-300"
           onClick={() => setView(false)}
         />
       )}
@@ -27,7 +27,7 @@ const MobileHomeNav = () => {
         <section className="p-4">
           {/* Header */}
           <div className="flex justify-between items-center mb-4">
-            <h5 className="text-xl font-bold underline">Quin YEY</h5>
+            <h5 className="text-xl font-bold underline"></h5>
             <button className="text-2xl" onClick={() => setView(false)}>
               &#10006;
             </button>

@@ -27,23 +27,6 @@ const Devs = () => {
         },
       ],
     },
-    {
-      name: "Sam Daniel Mugar",
-      img: "/mugar.jpg",
-      role: "UI/UX Designer",
-      socials: [
-        {
-          Icon: FaInstagram,
-          label: "Instagram",
-          link: "https://www.instagram.com/samwiiich_/",
-        },
-        {
-          Icon: FaLinkedin,
-          label: "LinkedIn",
-          link: "https://linkedin.com/in/mugar",
-        },
-      ],
-    },
   ];
   const dateTod = new Date();
   const formattedDate = format(new Date(dateTod), "yyyy");

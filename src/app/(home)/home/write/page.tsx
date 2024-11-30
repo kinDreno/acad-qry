@@ -5,8 +5,9 @@ import { Post } from "@/types/here";
 import { Button } from "@/components/ui/button";
 import Rules from "./rules";
 import Alert from "./alert";
-
+import { useRouter } from "next/navigation";
 export default function Write() {
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [close, setClose] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -43,33 +44,34 @@ export default function Write() {
 
     try {
       setLoading(true);
-      // if (!data?.user || error) {
-      //   setClose(true);
-      //   setMessage("User not authenticated, please log in.");
-      //   return;
-      // }
-      // deleted logic. I handled it instead in the server side.
-      const response = await fetch("/api/posts/", {
+      const response: Response = await fetch("/api/posts/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...writePost,
+          title: writePost.title,
+          content: writePost.content,
+          tag: writePost.tag,
         }),
       });
 
       const result = await response.json();
       if (response.ok) {
-        setMessage("Post successfully created.");
+        setClose(true);
+
+        setMessage("Post successfully created. Redirecting you..");
+        router.push(`/home/${result.createdPost.slug}`);
         setWritePost({ title: "", content: "", tag: "" });
       } else {
+        setClose(true);
         console.error(result.message);
         setMessage(
-          `Error creating post: ${result.message || response.statusText}`
+          `Error creating post: ${result?.message || response.statusText}`
         );
       }
     } catch (error: any) {
+      setClose(true);
       setMessage(`Unexpected error: ${error.message || error}`);
     } finally {
       setLoading(false);
