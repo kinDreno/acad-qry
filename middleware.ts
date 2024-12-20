@@ -4,9 +4,9 @@ import { createClient } from "@/utils/supabase/server";
 
 export async function middleware(request: NextRequest) {
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.getUser();
+  const { data: data, error } = await supabase.auth.getUser();
   try {
-    if (error || !data.user) {
+    if (error || !data?.user) {
       return NextResponse.redirect(new URL("/", request.url), { status: 401 });
     }
     return await updateSession(request);

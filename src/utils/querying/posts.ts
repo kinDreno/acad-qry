@@ -1,16 +1,4 @@
-import { Comment, MainContent } from "@/types/here";
-
-//GET request for fetching in the home page
-export async function fetchPosts(): Promise<MainContent[]> {
-  const response = await fetch("/api/posts", {
-    method: "GET",
-  });
-  if (!response.ok) {
-    throw new Error("Failed to fetch posts");
-  }
-
-  return response.json();
-}
+import { MainContent } from "@/types/here";
 
 //PUT request for comments in a specific post.
 export const addComment = async ({

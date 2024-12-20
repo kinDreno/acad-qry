@@ -65,6 +65,7 @@ export async function POST(req: Request) {
         userId: userId,
       },
     });
+
     revalidatePath(`/home/${slug}`);
     return NextResponse.json(newComment, { status: 201 });
   } catch (e: any) {

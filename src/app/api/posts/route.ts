@@ -4,9 +4,9 @@ import { prisma } from "@/utils/prisma";
 import { createClient } from "@/utils/supabase/server";
 import slugify from "slugify";
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const requestUrl = req.url;
-  const { title, content, tag } = body;
+  /*
+   */
+  const { title, content, tag } = await req.json();
 
   if (!title || !content || !tag) {
     return NextResponse.json(
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(
-      { createdPost, request: requestUrl },
+      { createdPost, request: req.url },
       { status: 201 }
     );
   } catch (err) {
@@ -59,9 +59,20 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
+  const { searchParams } = new URL(req.url);
+  const filter = searchParams.get("filter");
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.auth.getUser();
+
+  if (!data.user || error) {
+    return NextResponse.redirect(new URL("/", req.url), 302);
+  }
+
   try {
     const posts = await prisma.post.findMany({
+      where: filter ? { tag: filter } : undefined,
       include: {
         User: {
           select: {

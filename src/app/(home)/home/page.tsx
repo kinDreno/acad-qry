@@ -7,13 +7,27 @@ import { useQuery } from "@tanstack/react-query";
 import { MainContent } from "@/types/here";
 import { format } from "date-fns";
 import Link from "next/link";
-import { fetchPosts } from "@/utils/querying/posts";
 import { SkeletonDemo } from "./skeleton";
+import { useFilter } from "./filterContext";
 const Page = () => {
-  //
+  const { filter } = useFilter();
+
   const { data, error, isLoading } = useQuery<MainContent[], Error>({
-    queryKey: ["posts"],
-    queryFn: () => fetchPosts(),
+    queryKey: ["posts", filter],
+    queryFn: async (): Promise<MainContent[]> => {
+      const response = await fetch(
+        `/api/posts${filter ? `?filter=${filter}` : ``.trim()}`,
+        {
+          method: "GET",
+          next: { revalidate: 0 },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch posts");
+      }
+
+      return response.json();
+    },
   });
 
   if (isLoading)
@@ -23,8 +37,13 @@ const Page = () => {
       </section>
     );
 
-  if (error instanceof Error)
-    return <p>{error.message}.. Trying to refetch it...</p>;
+  if (error as Error)
+    return (
+      <p>
+        {error?.message || "Failed to refetch the post."}.. Trying to refetch
+        it...
+      </p>
+    );
 
   return (
     <>
