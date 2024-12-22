@@ -41,6 +41,7 @@ export interface MainContent extends Post {
   charisma: number;
   Comment: Comment[];
   slug: string;
+  isOwner: boolean;
 }
 
 export type Comment = {

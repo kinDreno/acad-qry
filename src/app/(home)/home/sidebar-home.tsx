@@ -16,7 +16,6 @@ const SidebarHome = ({ emailUser }: { emailUser: string | null }) => {
     <>
       <main className="fixed bottom-0 left-0 border-r-2 border-r-slate-800 w-[20vw] max-md:hidden h-[85vh]">
         <div id="sidebar" className="h-full w-full flex flex-col">
-          {/* Top section */}
           <section className="flex-1 overflow-y-auto">
             <div className="flex justify-between items-center p-4">
               <h3 className="font-bold">Post Filtering</h3>
@@ -45,7 +44,6 @@ const SidebarHome = ({ emailUser }: { emailUser: string | null }) => {
             </div>
           </section>
 
-          {/* Bottom section */}
           <article className="h-[15%] w-full border-t-2 border-slate-800 flex justify-between items-center p-4">
             <div className="flex items-center space-x-4">
               <Image

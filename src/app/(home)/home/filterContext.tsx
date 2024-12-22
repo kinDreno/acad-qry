@@ -1,11 +1,10 @@
 "use client";
-
 import { createContext, useState, useContext } from "react";
 
-interface FilterContextType {
+type FilterContextType = {
   filter: string | null;
   setFilter: (value: string | null) => void;
-}
+};
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
 

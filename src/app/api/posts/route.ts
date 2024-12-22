@@ -4,8 +4,6 @@ import { prisma } from "@/utils/prisma";
 import { createClient } from "@/utils/supabase/server";
 import slugify from "slugify";
 export async function POST(req: NextRequest) {
-  /*
-   */
   const { title, content, tag } = await req.json();
 
   if (!title || !content || !tag) {

@@ -9,9 +9,9 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { SkeletonDemo } from "./skeleton";
 import { useFilter } from "./filterContext";
+
 const Page = () => {
   const { filter } = useFilter();
-
   const { data, error, isLoading } = useQuery<MainContent[], Error>({
     queryKey: ["posts", filter],
     queryFn: async (): Promise<MainContent[]> => {

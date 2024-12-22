@@ -27,8 +27,8 @@ const CommentSection = ({
       userId: string;
       slug: string | string[] | undefined;
     }) => addComment({ text, id, userId, slug }),
-    onSuccess: (newComment) => {
-      console.log(`Added new comment! ${newComment}`);
+    onSuccess: () => {
+      console.log(`Added new comment!`);
       setComment("");
     },
     onError: (error: Error) => {

@@ -1,6 +1,5 @@
 import { MainContent } from "@/types/here";
 
-//PUT request for comments in a specific post.
 export const addComment = async ({
   id,
   text,
@@ -29,7 +28,10 @@ export const addComment = async ({
 
 // for dynamic routes
 export const fetchPostBySlug = async (slug: string): Promise<MainContent> => {
-  const response = await fetch(`/api/posts/${slug}`);
+  const response = await fetch(`/api/posts/${slug}`, {
+    method: "GET",
+    next: { revalidate: 0 },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch post");
