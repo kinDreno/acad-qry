@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import AlertDia from "../../../components/alert";
 import { Button } from "../../../components/ui/button";
 import { useFilter } from "./filterContext";
-const SidebarHome = ({ emailUser }: { emailUser: string | null }) => {
+import Link from "next/link";
+const SidebarHome = ({ emailUser }: { emailUser: string }) => {
   const { filter, setFilter } = useFilter();
 
   const filterPost = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +44,10 @@ const SidebarHome = ({ emailUser }: { emailUser: string | null }) => {
             </div>
           </section>
 
-          <article className="h-[15%] w-full border-t-2 border-slate-800 flex justify-between items-center p-4">
+          <Link
+            href={`/home/profile/${emailUser}`}
+            className="h-[15%] w-full border-t-2 border-slate-800 flex justify-between items-center p-4"
+          >
             <div className="flex items-center space-x-4">
               <Image
                 src="/ryangosling.jpg"
@@ -58,16 +61,7 @@ const SidebarHome = ({ emailUser }: { emailUser: string | null }) => {
                 <h6 className="text-sm opacity-60">{emailUser}</h6>
               </div>
             </div>
-            <AlertDia
-              dialogDescription={`
-          Logging out will end your current session, and you will need to
-          enter your credentials again to access your account. If you have
-          unsaved changes or important information, please make sure to
-          save them before proceeding.
-        `}
-              dialogTitle={"Are you sure you want to log out?"}
-            />
-          </article>
+          </Link>
         </div>
       </main>
     </>
