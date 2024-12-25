@@ -110,13 +110,6 @@ export async function DELETE(
       { status: 200 }
     );
   } catch (error: any) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      // Handle specific Prisma errors
-      if (error.code === "P2025") {
-        return NextResponse.json({ error: "Post not found" }, { status: 404 });
-      }
-    }
-
     console.error("Delete post error:", error);
     return NextResponse.json(
       { error: "Failed to delete post" },

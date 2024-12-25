@@ -6,8 +6,8 @@ import { redirect } from "next/navigation";
 import { FilterProvider } from "./filterContext";
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const supabase = await createClient();
-  const { data: userData, error } = await supabase.auth.getUser();
-  if (error || !userData) {
+  const { data: userData, error: err } = await supabase.auth.getUser();
+  if (err || !userData) {
     redirect("/");
   }
 
@@ -16,7 +16,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       <FilterProvider>
         <NavHome />
         <MobileHomeNav />
-        <SidebarHome emailUser={userData.user?.email || null} />
+        <SidebarHome emailUser={userData.user?.email || "Not Authenticated"} />
         {children}
       </FilterProvider>
     </>
