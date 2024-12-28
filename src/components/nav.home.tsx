@@ -21,28 +21,31 @@ const NavHome: React.FC = () => {
   };
 
   return (
-    <nav className="backdrop-blur-md flex fixed top-0 justify-between p-8 items-center max-md:hidden overflow-hidden w-full h-[15vh] border-b-2 border-slate-700">
-      <Link href="/home" className="flex items-center">
+    <nav className="backdrop-blur-md fixed top-0 left-0 w-full p-6 bg-opacity-50 flex justify-between items-center border-b-2 border-slate-700 z-50">
+      <Link href="/home" className="flex items-center space-x-2">
         <PiHandshakeFill size={50} />
-        <h3 className="ml-2 text-lg font-bold">Akademiko RIA</h3>
+        <h3 className="text-lg font-bold text-white">Akademiko RIA</h3>
       </Link>
-      <ul className="flex space-x-6 items-center">
-        {navItems.map(([label, href, Icon], index) => {
-          return (
-            <li key={index}>
-              <Link
-                href={href}
-                className="flex items-center text-lg hover:text-indigo-700 hover:underline transition duration-300"
-                aria-label={label}
-              >
-                <Icon className="mr-1" />
-                {label}
-              </Link>
-            </li>
-          );
-        })}
+      <ul className="flex space-x-6 items-center text-white">
+        {navItems.map(([label, href, Icon], index) => (
+          <li key={index}>
+            <Link
+              href={href}
+              className="flex items-center text-lg hover:text-indigo-700 hover:underline transition duration-300"
+              aria-label={label}
+            >
+              <Icon className="mr-2" />
+              {label}
+            </Link>
+          </li>
+        ))}
       </ul>
-      <Button onClick={handleLogout}>Sign Out</Button>
+      <Button
+        onClick={handleLogout}
+        className="bg-red-500 text-white hover:bg-red-600"
+      >
+        Sign Out
+      </Button>
     </nav>
   );
 };

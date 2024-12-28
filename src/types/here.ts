@@ -33,6 +33,7 @@ export type Post = {
 };
 
 export interface MainContent extends Post {
+  email: string;
   userId: string;
   id: number;
   User: User;

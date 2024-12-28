@@ -9,11 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--background)", // Ensure these CSS variables are defined
+        foreground: "var(--foreground)", // Ensure these CSS variables are defined
+      },
+      keyframes: {
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.5s ease-in-out forwards",
       },
     },
   },
   plugins: [],
 };
+
 export default config;

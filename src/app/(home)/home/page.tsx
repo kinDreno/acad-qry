@@ -4,12 +4,12 @@ import { IoMdStarOutline } from "react-icons/io";
 import { MdOutlineStar } from "react-icons/md";
 import { FaComment } from "react-icons/fa6";
 import { useQuery } from "@tanstack/react-query";
-import { MainContent } from "@/types/here";
+import { MainContent, User } from "@/types/here";
 import { format } from "date-fns";
 import Link from "next/link";
 import { SkeletonDemo } from "./skeleton";
 import { useFilter } from "./filterContext";
-
+import SidebarHome from "./sidebar-home";
 const Page = () => {
   const { filter } = useFilter();
   const { data, error, isLoading } = useQuery<MainContent[], Error>({
@@ -32,7 +32,7 @@ const Page = () => {
 
   if (isLoading)
     return (
-      <section className="h-screen w-full">
+      <section className="max-w-screen-sm w-full h-full mx-auto flex-col justify-center items-center">
         <SkeletonDemo />
       </section>
     );
@@ -47,7 +47,8 @@ const Page = () => {
 
   return (
     <>
-      <main className="max-w-screen-sm mt-[9em] w-full h-full mx-auto space-y-3 flex-col justify-center items-center">
+      <SidebarHome emailUser=""></SidebarHome>
+      <main className="animate-fade-in max-w-screen-sm mt-[9em] w-full h-full mx-auto space-y-3 flex-col justify-center items-center">
         {data?.map((post, index) => {
           const formattedDate = format(
             new Date(post.postedAt),

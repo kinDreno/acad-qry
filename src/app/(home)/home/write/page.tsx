@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Rules from "./rules";
 import Alert from "./alert";
 import { useRouter } from "next/navigation";
+
 export default function Write() {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
@@ -59,7 +60,6 @@ export default function Write() {
       const result = await response.json();
       if (response.ok) {
         setClose(true);
-
         setMessage("Post successfully created. Redirecting you..");
         router.push(`/home/${result.createdPost.slug}`);
         setWritePost({ title: "", content: "", tag: "" });
@@ -80,25 +80,27 @@ export default function Write() {
 
   return (
     <>
-      <main className="relative flex max-h-[40%] w-full">
+      <main className="fade-in relative mt-16 flex max-h-[80vh] w-full px-6 py-4 shadow-lg rounded-lg">
         <Alert
           onClose={() => setClose(false)}
           message={message}
           hideDisplay={close}
         />
-        <div className="flex justify-center items-center text-center h-full w-full">
-          <div className="grid w-full p-12 grid-cols-1 space-y-4">
-            <h4 className="font-bold">
+        <div className="flex justify-center items-center text-center w-full">
+          <div className="grid w-full md:w-2/3 lg:w-1/2 space-y-6">
+            <h4 className="font-bold text-2xl">
               Create Post | Read the rules before your post.
             </h4>
-            <form className="h-full w-full" onSubmit={handleSubmit}>
-              <section className="block">
-                <label htmlFor="tag">Tag:</label>
+            <form className="w-full" onSubmit={handleSubmit}>
+              <section className="space-y-4">
+                <label htmlFor="tag" className="text-lg">
+                  Tag:
+                </label>
                 <select
                   name="tag"
                   onChange={handleChangeValues}
                   value={writePost.tag}
-                  className="p-2 border-2 border-slate-800 border-opacity-40 rounded-sm"
+                  className="w-full p-3 border-2 border-slate-800 rounded-sm"
                 >
                   <option value="">Add a Tag</option>
                   <option value="Casual">Casual</option>
@@ -106,31 +108,38 @@ export default function Write() {
                   <option value="Report">Report</option>
                 </select>
               </section>
-              <section>
-                <label htmlFor="title">Title:</label>
+              <section className="space-y-4">
+                <label htmlFor="title" className="text-lg">
+                  Title:
+                </label>
                 <input
                   value={writePost.title}
                   onChange={handleChangeValues}
                   type="text"
                   name="title"
                   maxLength={40}
-                  className="max-w-[100%] border-2 text-left rounded-sm"
+                  className="w-full p-3 border-2 border-slate-800 rounded-sm"
                 />
               </section>
-              <br />
-              <section>
-                <label htmlFor="content">Content:</label>
+              <section className="space-y-4">
+                <label htmlFor="content" className="text-lg">
+                  Content:
+                </label>
                 <textarea
                   name="content"
                   onChange={handleChangeValues}
                   value={writePost.content}
-                  className="max-w-[100%] resize-y border-2 text-left rounded-sm"
+                  className="w-full p-3 resize-y border- rounded-sm"
                 />
               </section>
-              <Button type="submit" disabled={loading}>
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full mt-6 bg-blue-500"
+              >
                 {loading ? (
                   <>
-                    <ThreeDots color="black" />
+                    <ThreeDots color="white" />
                     <span>Posting...</span>
                   </>
                 ) : (
@@ -140,7 +149,6 @@ export default function Write() {
             </form>
           </div>
         </div>
-        {/* Right Side-Bar */}
         <Rules />
       </main>
     </>
