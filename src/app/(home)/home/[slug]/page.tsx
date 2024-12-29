@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { SkeletonDemo } from "../skeleton";
 import CommentSection from "./commentSection";
 import { DeletePostPrompt } from "./deletePostPrompt";
-import { toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 const PostPage = () => {
   const route = useRouter();
@@ -92,6 +92,7 @@ const PostPage = () => {
 
   return (
     <>
+      <Toaster position="bottom-left" reverseOrder={false} />
       <main className=" w-full h-full flex flex-col justify-start items-center py-6 px-4">
         <div className="mt-36 max-w-screen-lg w-full lg:ml-28 border-2 p-10 rounded-lg shadow-lg">
           <div className="mb-6 text-gray-300 flex justify-evenly">
@@ -124,7 +125,7 @@ const PostPage = () => {
 
         <article className="max-w-screen-lg w-full mt-10">
           <h2 className="text-2xl text-white font-semibold mb-4">Comments</h2>
-          {post.Comment.map((comment, index) => {
+          {post.Comment?.map((comment, index) => {
             const formatDate = format(
               new Date(comment.createdAt),
               "MMMM dd, yyyy"

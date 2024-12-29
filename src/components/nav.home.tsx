@@ -21,7 +21,7 @@ const NavHome: React.FC = () => {
   };
 
   return (
-    <nav className="backdrop-blur-md fixed top-0 left-0 w-full p-6 bg-opacity-50 flex justify-between items-center border-b-2 border-slate-700 z-50">
+    <nav className="max-sm:hidden backdrop-blur-md fixed top-0 left-0 w-full p-6 bg-opacity-50 flex justify-between items-center border-b-2 border-slate-700 z-50">
       <Link href="/home" className="flex items-center space-x-2">
         <PiHandshakeFill size={50} />
         <h3 className="text-lg font-bold text-white">Akademiko RIA</h3>
@@ -40,12 +40,7 @@ const NavHome: React.FC = () => {
           </li>
         ))}
       </ul>
-      <Button
-        onClick={handleLogout}
-        className="bg-red-500 text-white hover:bg-red-600"
-      >
-        Sign Out
-      </Button>
+      <Button onClick={handleLogout}>Sign Out</Button>
     </nav>
   );
 };

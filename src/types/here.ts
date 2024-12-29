@@ -1,10 +1,8 @@
-// general static types here
-//instead of writing it in a specific component or page.
-
 export type Alert = {
   dialogTitle: React.ReactNode;
   dialogDescription: React.ReactNode;
 };
+
 type SocialLink = {
   Icon: React.ElementType;
   label: string;
@@ -26,36 +24,45 @@ export type SignIn = {
   course: string;
   collegeYear: string;
 };
+
 export type Post = {
   title: string;
   content: string;
   tag: string;
 };
-
-export interface MainContent extends Post {
-  email: string;
+export interface MainContent {
+  title: string;
+  content: string;
+  tag: string;
+  User: any;
   userId: string;
   id: number;
-  User: User;
   postedAt: Date;
   collegeYear: string;
   charisma: number;
-  Comment: Comment[];
+  Comment?: Comment[];
   slug: string;
   isOwner: boolean;
 }
 
-export type Comment = {
-  text: string;
-  createdAt: Date;
-  User: User;
+export type MainHome = {
+  posts: MainContent[];
+  userProfile: User;
 };
 
 export type User = {
+  userId: string;
   firstName: string;
+  email: string;
   lastName: string;
   course: string;
   collegeYear: string;
-  posts: Post[];
-  comments: Comment[];
+  posts?: Post[];
+  comments?: Comment[];
+};
+
+export type Comment = {
+  text: string;
+  createdAt: string; // Changed to string (ISO date string) for consistency
+  User: User;
 };

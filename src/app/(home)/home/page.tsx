@@ -4,17 +4,18 @@ import { IoMdStarOutline } from "react-icons/io";
 import { MdOutlineStar } from "react-icons/md";
 import { FaComment } from "react-icons/fa6";
 import { useQuery } from "@tanstack/react-query";
-import { MainContent, User } from "@/types/here";
+import { MainHome } from "@/types/here";
 import { format } from "date-fns";
 import Link from "next/link";
 import { SkeletonDemo } from "./skeleton";
 import { useFilter } from "./filterContext";
 import SidebarHome from "./sidebar-home";
+
 const Page = () => {
   const { filter } = useFilter();
-  const { data, error, isLoading } = useQuery<MainContent[], Error>({
+  const { data, error, isLoading } = useQuery<MainHome, Error>({
     queryKey: ["posts", filter],
-    queryFn: async (): Promise<MainContent[]> => {
+    queryFn: async (): Promise<MainHome> => {
       const response = await fetch(
         `/api/posts${filter ? `?filter=${filter}` : ``.trim()}`,
         {
@@ -30,26 +31,30 @@ const Page = () => {
     },
   });
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <section className="max-w-screen-sm w-full h-full mx-auto flex-col justify-center items-center">
-        <SkeletonDemo />
-      </section>
+      <>
+        <SidebarHome emailUser={"Loading"} />
+        <section className="max-w-screen-sm w-full h-full mx-auto flex-col justify-center items-center">
+          <SkeletonDemo />
+        </section>
+      </>
     );
+  }
 
-  if (error as Error)
+  if (error) {
     return (
-      <p>
-        {error?.message || "Failed to refetch the post."}.. Trying to refetch
-        it...
-      </p>
+      <p>{error.message || "Failed to fetch posts."} Trying to refetch it...</p>
     );
+  }
 
   return (
     <>
-      <SidebarHome emailUser=""></SidebarHome>
+      <SidebarHome
+        emailUser={data?.userProfile?.email || "Not Authenticated"}
+      />
       <main className="animate-fade-in max-w-screen-sm mt-[9em] w-full h-full mx-auto space-y-3 flex-col justify-center items-center">
-        {data?.map((post, index) => {
+        {data?.posts?.map((post, index) => {
           const formattedDate = format(
             new Date(post.postedAt),
             "MMMM dd, yyyy"
