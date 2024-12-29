@@ -78,13 +78,24 @@ export const GET = async (req: NextRequest) => {
             firstName: true,
             lastName: true,
             course: true,
+            email: true,
           },
         },
         Comment: { select: { id: true } },
       },
     });
+    const userProfile = await prisma.user.findUnique({
+      where: { uid: data?.user.id },
+      select: {
+        firstName: true,
+        lastName: true,
+        course: true,
+        email: true,
+      },
+    });
 
-    return NextResponse.json(posts, { status: 200 });
+    const userProfileAndPosts = { posts, userProfile };
+    return NextResponse.json(userProfileAndPosts, { status: 200 });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ message: "An error occured." }, { status: 500 });

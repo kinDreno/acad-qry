@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { addComment } from "@/utils/querying/posts";
 import { Button } from "@/components/ui/button";
-
+import toast from "react-hot-toast";
 const CommentSection = ({
   id,
   userId,
@@ -28,6 +28,7 @@ const CommentSection = ({
       slug: string | string[] | undefined;
     }) => addComment({ text, id, userId, slug }),
     onSuccess: () => {
+      toast.success("Added new comment!");
       console.log(`Added new comment!`);
       setComment("");
     },
