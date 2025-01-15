@@ -46,7 +46,7 @@ const Nav: React.FC = () => {
           <ul className="flex space-x-6 items-center max-md:hidden">
             {[
               ["About", "#about"],
-              ["Developers", "#developers"],
+              ["Developers", "https://github.com/kinDreno/acad-qry"],
               ["Features", "#features"],
             ].map(([label, href], index) => (
               <li key={index}>
