@@ -1,16 +1,19 @@
-<h2 align="left">Status of the project: Under Development (Not yet Finished)</h2>
+<h1 align="left">Welcome to Akademiko Ria</h1>
 
 ###
 
-<h3 align="left">Welcome to Akademiko RIA [Report, Inquire, and Answer!] (Not the official name of this project.)</h3>
+<h4 align="left">A web application where students from different schools and<br>              courses can inquire about                  academic matters.</h4>
 
 ###
 
-<h5 align="left">A web application where students from different schools and courses can inquire and report about academic matters.</h5>
+<h2 align="left">Technologies that were used:</h2>
 
 ###
 
-<h5 align="left">I am thinking if this project must be only specifically focused for my school.
-will update this one in the future if I still have the motivation to keep going further to implement this project.</h5>
+<h3 align="left">Client: Tanstack Query, React, NextJS, TailwindCSS<br>Server: NextJS, Prisma ORM, PostgreSQL, NodeJS</h3>
+
+###
+
+<h5 align="left">I do not maintain this project anymore because my Database integration and Authentication Service has already expired in supabase.</h5>
 
 ###
